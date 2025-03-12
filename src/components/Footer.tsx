@@ -1,127 +1,157 @@
 
-import { Facebook, Instagram, Twitter, Linkedin, ArrowUp } from 'lucide-react';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Instagram, Linkedin, Twitter, Youtube, Mail, Phone, MapPin } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Footer = () => {
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
-
+  const { translate } = useLanguage();
+  
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="container mx-auto px-4 md:px-6 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-          {/* Column 1 - About */}
+    <footer className="bg-luxury-navy text-white pt-16 pb-8">
+      <div className="luxury-container">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Company Info */}
           <div>
-            <h2 className="font-serif text-2xl font-light mb-5">
-              <span className="text-primary">Invest</span>
-              <span className="font-medium">Dubai</span>
-              <span className="font-light text-gray-400">Homes</span>
-            </h2>
-            <p className="text-gray-400 mb-5">
-              Premium real estate expertise in Dubai, providing exceptional investment opportunities and unparalleled service.
+            <h3 className="text-2xl font-bold mb-4">
+              <span className="text-luxury-gold">ME MY</span>DUBAI
+            </h3>
+            <p className="text-gray-300 mb-4">
+              {translate("Your premier partner for luxury property investments in Dubai and Ras Al Khaimah.")}
             </p>
-            <div className="flex space-x-4">
-              <SocialLink href="#" icon={<Facebook className="h-4 w-4" />} />
-              <SocialLink href="#" icon={<Instagram className="h-4 w-4" />} />
-              <SocialLink href="#" icon={<Twitter className="h-4 w-4" />} />
-              <SocialLink href="#" icon={<Linkedin className="h-4 w-4" />} />
+            <div className="flex space-x-4 mb-4">
+              <a href="#" className="text-gray-300 hover:text-luxury-gold">
+                <Instagram size={20} />
+              </a>
+              <a href="#" className="text-gray-300 hover:text-luxury-gold">
+                <Linkedin size={20} />
+              </a>
+              <a href="#" className="text-gray-300 hover:text-luxury-gold">
+                <Twitter size={20} />
+              </a>
+              <a href="#" className="text-gray-300 hover:text-luxury-gold">
+                <Youtube size={20} />
+              </a>
             </div>
           </div>
 
-          {/* Column 2 - Quick Links */}
+          {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-medium mb-5">Quick Links</h3>
-            <ul className="space-y-3">
-              <FooterLink href="#properties">Properties</FooterLink>
-              <FooterLink href="#about">About Dubai</FooterLink>
-              <FooterLink href="#contact">Contact Us</FooterLink>
-              <FooterLink href="#">Investment Guide</FooterLink>
-              <FooterLink href="#">FAQ</FooterLink>
+            <h4 className="text-xl font-bold mb-4">{translate("Quick Links")}</h4>
+            <ul className="space-y-2">
+              <li>
+                <Link to="/" className="text-gray-300 hover:text-luxury-gold">
+                  {translate("Home")}
+                </Link>
+              </li>
+              <li>
+                <Link to="/properties" className="text-gray-300 hover:text-luxury-gold">
+                  {translate("Properties")}
+                </Link>
+              </li>
+              <li>
+                <Link to="/roi" className="text-gray-300 hover:text-luxury-gold">
+                  {translate("ROI & Investment")}
+                </Link>
+              </li>
+              <li>
+                <Link to="/company-setup" className="text-gray-300 hover:text-luxury-gold">
+                  {translate("Company Setup")}
+                </Link>
+              </li>
+              <li>
+                <Link to="/financing" className="text-gray-300 hover:text-luxury-gold">
+                  {translate("Financing")}
+                </Link>
+              </li>
+              <li>
+                <Link to="/crypto-buying" className="text-gray-300 hover:text-luxury-gold">
+                  {translate("Crypto Buying")}
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog" className="text-gray-300 hover:text-luxury-gold">
+                  {translate("Blog")}
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="text-gray-300 hover:text-luxury-gold">
+                  {translate("Contact Us")}
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Column 3 - Property Types */}
+          {/* Property Types */}
           <div>
-            <h3 className="text-lg font-medium mb-5">Property Types</h3>
-            <ul className="space-y-3">
-              <FooterLink href="#">Luxury Apartments</FooterLink>
-              <FooterLink href="#">Beachfront Villas</FooterLink>
-              <FooterLink href="#">Penthouses</FooterLink>
-              <FooterLink href="#">Townhouses</FooterLink>
-              <FooterLink href="#">Off-Plan Properties</FooterLink>
+            <h4 className="text-xl font-bold mb-4">{translate("Property Types")}</h4>
+            <ul className="space-y-2">
+              <li>
+                <Link to="/properties?type=apartments" className="text-gray-300 hover:text-luxury-gold">
+                  {translate("Luxury Apartments")}
+                </Link>
+              </li>
+              <li>
+                <Link to="/properties?type=villas" className="text-gray-300 hover:text-luxury-gold">
+                  {translate("Premium Villas")}
+                </Link>
+              </li>
+              <li>
+                <Link to="/properties?type=penthouses" className="text-gray-300 hover:text-luxury-gold">
+                  {translate("Exclusive Penthouses")}
+                </Link>
+              </li>
+              <li>
+                <Link to="/properties?type=offplan" className="text-gray-300 hover:text-luxury-gold">
+                  {translate("Off-Plan Projects")}
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Column 4 - Newsletter */}
+          {/* Contact Info */}
           <div>
-            <h3 className="text-lg font-medium mb-5">Newsletter</h3>
-            <p className="text-gray-400 mb-4">
-              Subscribe to receive the latest property updates and investment opportunities.
-            </p>
-            <form className="mb-4">
-              <div className="flex">
-                <input
-                  type="email"
-                  placeholder="Your email address"
-                  className="px-4 py-2 bg-gray-800 text-white rounded-l-md w-full focus:outline-none focus:ring-1 focus:ring-primary"
-                />
-                <button
-                  type="submit"
-                  className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-r-md transition-colors"
-                >
-                  Subscribe
-                </button>
-              </div>
-            </form>
-            <p className="text-gray-500 text-sm">
-              We respect your privacy. Unsubscribe anytime.
-            </p>
+            <h4 className="text-xl font-bold mb-4">{translate("Contact Us")}</h4>
+            <ul className="space-y-3">
+              <li className="flex items-start">
+                <MapPin className="mr-2 h-5 w-5 text-luxury-gold flex-shrink-0 mt-1" />
+                <span className="text-gray-300">
+                  Dubai Marina, Dubai, UAE
+                </span>
+              </li>
+              <li className="flex items-center">
+                <Phone className="mr-2 h-5 w-5 text-luxury-gold" />
+                <span className="text-gray-300">+971 50 123 4567</span>
+              </li>
+              <li className="flex items-center">
+                <Mail className="mr-2 h-5 w-5 text-luxury-gold" />
+                <span className="text-gray-300">info@memydubai.com</span>
+              </li>
+            </ul>
           </div>
         </div>
 
-        {/* Bottom section */}
-        <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
-          <div className="text-gray-500 text-sm mb-4 md:mb-0">
-            © {new Date().getFullYear()} InvestDubaiHomes. All rights reserved.
-          </div>
-          <div className="flex items-center space-x-8">
-            <a href="#" className="text-gray-400 hover:text-white text-sm">Privacy Policy</a>
-            <a href="#" className="text-gray-400 hover:text-white text-sm">Terms of Service</a>
-            <button 
-              onClick={scrollToTop}
-              className="p-2 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors"
-              aria-label="Scroll to top"
-            >
-              <ArrowUp className="h-4 w-4" />
-            </button>
+        <div className="border-t border-gray-700 mt-12 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <p className="text-gray-400 text-sm">
+              &copy; {new Date().getFullYear()} ME MY DUBAI. {translate("All rights reserved")}.
+            </p>
+            <div className="flex space-x-6 mt-4 md:mt-0">
+              <Link to="/privacy" className="text-gray-400 hover:text-luxury-gold text-sm">
+                {translate("Privacy Policy")}
+              </Link>
+              <Link to="/terms" className="text-gray-400 hover:text-luxury-gold text-sm">
+                {translate("Terms of Service")}
+              </Link>
+              <Link to="/cookies" className="text-gray-400 hover:text-luxury-gold text-sm">
+                {translate("Cookie Policy")}
+              </Link>
+            </div>
           </div>
         </div>
       </div>
     </footer>
   );
 };
-
-const SocialLink = ({ href, icon }: { href: string; icon: React.ReactNode }) => (
-  <a 
-    href={href}
-    className="p-2 bg-gray-800 rounded-full hover:bg-primary hover:text-white transition-colors"
-  >
-    {icon}
-  </a>
-);
-
-const FooterLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
-  <li>
-    <a 
-      href={href}
-      className="text-gray-400 hover:text-primary transition-colors hover-transition"
-    >
-      {children}
-    </a>
-  </li>
-);
 
 export default Footer;
