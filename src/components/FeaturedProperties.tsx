@@ -5,56 +5,65 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import PropertyCard from "@/components/PropertyCard";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import type { PropertyProps } from "@/components/PropertyCard";
 
 // Property data
-const properties = [
+const properties: PropertyProps[] = [
   // Dubai Properties
   {
     id: "d1",
     title: "Luxury Apartment in Downtown Dubai",
-    price: "2500000",
+    price: 2500000,
     location: "Downtown Dubai",
     bedrooms: 2,
     bathrooms: 2.5,
     area: 1250,
-    image: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
-    featured: true,
+    imageUrl: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
+    type: "Apartment",
+    roi: 7.2,
+    status: "ready",
     city: "Dubai"
   },
   {
     id: "d2",
     title: "Marina Penthouse with Sea View",
-    price: "5800000",
+    price: 5800000,
     location: "Dubai Marina",
     bedrooms: 3,
     bathrooms: 3.5,
     area: 2300,
-    image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
-    featured: true,
+    imageUrl: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
+    type: "Penthouse",
+    roi: 6.8,
+    status: "ready",
     city: "Dubai"
   },
   {
     id: "d3",
     title: "Exclusive Villa on Palm Jumeirah",
-    price: "12000000",
+    price: 12000000,
     location: "Palm Jumeirah",
     bedrooms: 5,
     bathrooms: 5.5,
     area: 5500,
-    image: "https://images.unsplash.com/photo-1577495508048-b635879837f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
-    featured: true,
+    imageUrl: "https://images.unsplash.com/photo-1577495508048-b635879837f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
+    type: "Villa",
+    roi: 5.9,
+    status: "ready",
     city: "Dubai"
   },
   {
     id: "d4",
     title: "Modern Apartment in Business Bay",
-    price: "1800000",
+    price: 1800000,
     location: "Business Bay",
     bedrooms: 1,
     bathrooms: 1.5,
     area: 950,
-    image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
-    featured: true,
+    imageUrl: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
+    type: "Apartment",
+    roi: 7.5,
+    status: "ready",
     city: "Dubai"
   },
   
@@ -62,49 +71,57 @@ const properties = [
   {
     id: "r1",
     title: "Beachfront Villa in Al Marjan Island",
-    price: "4200000",
+    price: 4200000,
     location: "Al Marjan Island",
     bedrooms: 4,
     bathrooms: 4.5,
     area: 3200,
-    image: "https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
-    featured: true,
+    imageUrl: "https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
+    type: "Villa",
+    roi: 6.5,
+    status: "ready",
     city: "Ras Al Khaimah"
   },
   {
     id: "r2",
     title: "Luxury Chalet with Mountain View",
-    price: "2800000",
+    price: 2800000,
     location: "Jebel Jais",
     bedrooms: 3,
     bathrooms: 3,
     area: 1800,
-    image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
-    featured: true,
+    imageUrl: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
+    type: "Villa",
+    roi: 7.1,
+    status: "ready",
     city: "Ras Al Khaimah"
   },
   {
     id: "r3",
     title: "Waterfront Apartment in Mina Al Arab",
-    price: "1600000",
+    price: 1600000,
     location: "Mina Al Arab",
     bedrooms: 2,
     bathrooms: 2,
     area: 1100,
-    image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
-    featured: true,
+    imageUrl: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
+    type: "Apartment",
+    roi: 7.8,
+    status: "ready",
     city: "Ras Al Khaimah"
   },
   {
     id: "r4",
     title: "Golf View Villa in Al Hamra",
-    price: "3500000",
+    price: 3500000,
     location: "Al Hamra Village",
     bedrooms: 4,
     bathrooms: 3.5,
     area: 2800,
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
-    featured: true,
+    imageUrl: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
+    type: "Villa",
+    roi: 6.9,
+    status: "ready",
     city: "Ras Al Khaimah"
   }
 ];
@@ -113,7 +130,6 @@ const FeaturedProperties = () => {
   const [activeTab, setActiveTab] = useState("dubai");
   const navigate = useNavigate();
   const { translate } = useLanguage();
-  const { formatCurrency } = useCurrency();
 
   const handleViewProperty = (id: string) => {
     navigate(`/properties/${id}`);
@@ -145,7 +161,6 @@ const FeaturedProperties = () => {
                 <PropertyCard
                   key={property.id}
                   property={property}
-                  onViewProperty={() => handleViewProperty(property.id)}
                 />
               ))}
             </div>
@@ -157,7 +172,6 @@ const FeaturedProperties = () => {
                 <PropertyCard
                   key={property.id}
                   property={property}
-                  onViewProperty={() => handleViewProperty(property.id)}
                 />
               ))}
             </div>
@@ -178,3 +192,4 @@ const FeaturedProperties = () => {
 };
 
 export default FeaturedProperties;
+
