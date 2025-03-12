@@ -1,59 +1,215 @@
 
-import { useEffect } from 'react';
-import Header from '@/components/Header';
-import Hero from '@/components/Hero';
-import FeaturedProperties from '@/components/FeaturedProperties';
-import AboutDubai from '@/components/AboutDubai';
-import ContactForm from '@/components/ContactForm';
-import Footer from '@/components/Footer';
+import React from "react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import HeroSection from "@/components/HeroSection";
+import FeatureSection from "@/components/FeatureSection";
+import PropertyCard, { PropertyProps } from "@/components/PropertyCard";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
+import CurrencySelector from "@/components/CurrencySelector";
 
 const Index = () => {
-  // Initialize any effect hooks for the main page
-  useEffect(() => {
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        if (!targetId) return;
-        
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-          targetElement.scrollIntoView({
-            behavior: 'smooth'
-          });
-        }
-      });
-    });
-
-    // Parallax effect for elements with parallax class
-    const handleScroll = () => {
-      const parallaxElements = document.querySelectorAll('.parallax-bg');
-      parallaxElements.forEach(element => {
-        const scrollPosition = window.scrollY;
-        const elementPosition = element.getBoundingClientRect().top + scrollPosition;
-        const distance = scrollPosition - elementPosition;
-        const speed = 0.15; // Adjust for more or less effect
-        
-        if (element instanceof HTMLElement) {
-          element.style.transform = `translateY(${distance * speed}px)`;
-        }
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const { translate } = useLanguage();
+  
+  // Sample featured properties
+  const featuredProperties: PropertyProps[] = [
+    {
+      id: "prop1",
+      title: "Luxury Apartment in Dubai Marina",
+      location: "Dubai Marina",
+      price: 2500000,
+      type: "Apartment",
+      bedrooms: 2,
+      bathrooms: 2.5,
+      area: 1500,
+      roi: 7.2,
+      imageUrl: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
+      status: "ready",
+    },
+    {
+      id: "prop2",
+      title: "Beachfront Villa on Palm Jumeirah",
+      location: "Palm Jumeirah",
+      price: 15000000,
+      type: "Villa",
+      bedrooms: 5,
+      bathrooms: 6,
+      area: 7000,
+      roi: 5.8,
+      imageUrl: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
+      status: "ready",
+    },
+    {
+      id: "prop3",
+      title: "Off-Plan Apartment in Downtown Dubai",
+      location: "Downtown Dubai",
+      price: 1800000,
+      type: "Apartment",
+      bedrooms: 1,
+      bathrooms: 1.5,
+      area: 950,
+      roi: 9.1,
+      imageUrl: "https://images.unsplash.com/photo-1606046604972-77cc76aee944?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
+      status: "offplan",
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main>
-        <Hero />
-        <FeaturedProperties />
-        <AboutDubai />
-        <ContactForm />
+    <div className="flex flex-col min-h-screen">
+      <Navbar />
+      
+      <main className="flex-grow">
+        <HeroSection
+          title="Luxury Property Investment in Dubai & Ras Al Khaimah"
+          subtitle="Secure your future with high-ROI properties and tax-free returns in the UAE's most prestigious locations."
+          backgroundImage="https://images.unsplash.com/photo-1582398626929-4d39ff61ceaa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80"
+        />
+
+        <FeatureSection />
+        
+        {/* Featured Properties */}
+        <section className="section-padding">
+          <div className="luxury-container">
+            <div className="flex justify-between items-center mb-8">
+              <div>
+                <h2 className="text-3xl font-bold">{translate("Featured Properties")}</h2>
+                <div className="gold-separator" />
+              </div>
+              <div className="flex items-center gap-4">
+                <CurrencySelector />
+                <Button asChild variant="ghost" className="hidden md:flex">
+                  <Link to="/properties">
+                    {translate("View All Properties")} <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {featuredProperties.map((property) => (
+                <PropertyCard key={property.id} property={property} />
+              ))}
+            </div>
+            
+            <div className="text-center mt-12">
+              <Button asChild size="lg" className="bg-luxury-navy hover:bg-luxury-navy/90">
+                <Link to="/properties">
+                  {translate("Explore All Properties")} <ChevronRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+        
+        {/* Investment Benefits */}
+        <section className="section-padding bg-luxury-navy text-white">
+          <div className="luxury-container">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                {translate("Investment Benefits")}
+              </h2>
+              <div className="gold-separator mx-auto" />
+              <p className="text-gray-300 max-w-3xl mx-auto">
+                {translate("Dubai and Ras Al Khaimah offer exceptional advantages for property investors looking for strong returns and capital growth.")}
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="bg-luxury-navy/40 backdrop-blur-sm p-8 rounded-lg border border-white/10">
+                <h3 className="text-xl font-bold mb-4 text-luxury-gold">{translate("Tax-Free Investment")}</h3>
+                <p className="text-gray-300">
+                  {translate("Enjoy 0% income tax, 0% capital gains tax, and 0% property tax on your UAE investments.")}
+                </p>
+              </div>
+              
+              <div className="bg-luxury-navy/40 backdrop-blur-sm p-8 rounded-lg border border-white/10">
+                <h3 className="text-xl font-bold mb-4 text-luxury-gold">{translate("High Rental Yields")}</h3>
+                <p className="text-gray-300">
+                  {translate("Dubai properties offer rental yields between 6-10%, significantly higher than global averages.")}
+                </p>
+              </div>
+              
+              <div className="bg-luxury-navy/40 backdrop-blur-sm p-8 rounded-lg border border-white/10">
+                <h3 className="text-xl font-bold mb-4 text-luxury-gold">{translate("Residency Visas")}</h3>
+                <p className="text-gray-300">
+                  {translate("Property investment can qualify you for UAE residence visas, offering global mobility.")}
+                </p>
+              </div>
+              
+              <div className="bg-luxury-navy/40 backdrop-blur-sm p-8 rounded-lg border border-white/10">
+                <h3 className="text-xl font-bold mb-4 text-luxury-gold">{translate("Secure Investment")}</h3>
+                <p className="text-gray-300">
+                  {translate("UAE's stable political environment and strong regulatory framework protect investor interests.")}
+                </p>
+              </div>
+              
+              <div className="bg-luxury-navy/40 backdrop-blur-sm p-8 rounded-lg border border-white/10">
+                <h3 className="text-xl font-bold mb-4 text-luxury-gold">{translate("Crypto-Friendly")}</h3>
+                <p className="text-gray-300">
+                  {translate("Purchase properties using cryptocurrencies like Bitcoin and Ethereum with ease.")}
+                </p>
+                <div className="mt-4">
+                  <Button variant="link" className="text-luxury-gold p-0 h-auto" asChild>
+                    <Link to="/crypto-buying">
+                      {translate("Learn about crypto property buying")} <ChevronRight className="h-4 w-4 ml-1" />
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+              
+              <div className="bg-luxury-navy/40 backdrop-blur-sm p-8 rounded-lg border border-white/10">
+                <h3 className="text-xl font-bold mb-4 text-luxury-gold">{translate("Strong Appreciation")}</h3>
+                <p className="text-gray-300">
+                  {translate("Dubai's property market consistently shows strong capital appreciation over time.")}
+                </p>
+              </div>
+            </div>
+            
+            <div className="text-center mt-12">
+              <Button asChild size="lg" className="bg-luxury-gold hover:bg-luxury-gold/90">
+                <Link to="/roi">
+                  {translate("Learn More About ROI")} <ChevronRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+        
+        {/* CTA Section */}
+        <section className="relative py-20">
+          <div
+            className="absolute inset-0 z-0"
+            style={{
+              backgroundImage: "url(https://images.unsplash.com/photo-1609520505218-7421df70787f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80)",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              opacity: 0.2,
+            }}
+          />
+          <div className="luxury-container relative z-10">
+            <div className="text-center max-w-3xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                {translate("Ready to Start Your Investment Journey?")}
+              </h2>
+              <p className="text-xl mb-8">
+                {translate("Contact our experts for a personalized consultation on Dubai and RAK property investments.")}
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button asChild size="lg" className="bg-luxury-gold hover:bg-luxury-gold/90">
+                  <Link to="/contact">{translate("Book a Consultation")}</Link>
+                </Button>
+                <Button asChild size="lg" variant="outline">
+                  <Link to="/properties">{translate("Browse Properties")}</Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
+      
       <Footer />
     </div>
   );
