@@ -1,80 +1,72 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600;700&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 224 71.4% 4.1%;
-
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
-    --card-foreground: 224 71.4% 4.1%;
-
+    --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 224 71.4% 4.1%;
-
-    --primary: 35 91% 53%;
-    --primary-foreground: 210 20% 98%;
-
-    --secondary: 220 14.3% 95.9%;
-    --secondary-foreground: 220.9 39.3% 11%;
-
-    --muted: 220 14.3% 95.9%;
-    --muted-foreground: 220 8.9% 46.1%;
-
-    --accent: 36 100% 70%; 
-    --accent-foreground: 220.9 39.3% 11%;
-
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 72.2% 50.6%;
+    --primary-foreground: 0 85.7% 97.3%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 20% 98%;
-
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 35 91% 53%;
-
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 72.2% 50.6%;
     --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* Sidebar */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 222.2 47.4% 11.2%;
+    --sidebar-primary: 222.2 47.4% 11.2%;
+    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-accent: 210 40% 96.1%;
+    --sidebar-accent-foreground: 222.2 47.4% 11.2%;
+    --sidebar-border: 214.3 31.8% 91.4%;
+    --sidebar-ring: 222.2 47.4% 11.2%;
   }
 
   .dark {
-    --background: 224 71.4% 4.1%;
-    --foreground: 210 20% 98%;
-
-    --card: 224 71.4% 4.1%;
-    --card-foreground: 210 20% 98%;
-
-    --popover: 224 71.4% 4.1%;
-    --popover-foreground: 210 20% 98%;
-
-    --primary: 35 91% 53%;
-    --primary-foreground: 220.9 39.3% 11%;
-
-    --secondary: 215 27.9% 16.9%;
-    --secondary-foreground: 210 20% 98%;
-
-    --muted: 215 27.9% 16.9%;
-    --muted-foreground: 217.9 10.6% 64.9%;
-
-    --accent: 36 100% 70%;
-    --accent-foreground: 210 20% 98%;
-
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 72.2% 50.6%;
+    --primary-foreground: 0 85.7% 97.3%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 20% 98%;
-
-    --border: 215 27.9% 16.9%;
-    --input: 215 27.9% 16.9%;
-    --ring: 35 91% 53%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 72.2% 50.6%;
+    
+    /* Sidebar */
+    --sidebar-background: 222.2 47.4% 11.2%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 210 40% 98%;
+    --sidebar-primary-foreground: 222.2 47.4% 11.2%;
+    --sidebar-accent: 217.2 32.6% 17.5%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217.2 32.6% 17.5%;
+    --sidebar-ring: 212.7 26.8% 83.9%;
   }
 }
 
@@ -82,138 +74,31 @@
   * {
     @apply border-border;
   }
-
-  html {
-    @apply scroll-smooth antialiased;
-  }
-
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 
-/* Utility Classes */
-@layer components {
-  .text-display {
-    @apply font-serif text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light leading-tight tracking-tight;
-  }
-  
-  .text-heading {
-    @apply font-serif text-3xl md:text-4xl lg:text-5xl font-light leading-tight;
-  }
-  
-  .text-subheading {
-    @apply font-serif text-2xl md:text-3xl font-light;
-  }
-  
-  .text-body {
-    @apply font-sans text-base md:text-lg leading-relaxed;
-  }
-  
-  .text-caption {
-    @apply font-sans text-sm leading-normal text-muted-foreground;
-  }
-
-  .glass-panel {
-    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-soft;
-  }
-  
-  .section-padding {
-    @apply py-16 md:py-24 lg:py-32;
-  }
-  
-  .reveal {
-    @apply opacity-0;
-  }
-  
-  .reveal-visible {
-    @apply opacity-100 transition-all duration-1000;
-  }
-  
-  .hover-lift {
-    @apply transition-all duration-300 ease-out-expo hover:-translate-y-1 hover:shadow-luxe;
-  }
-  
-  .image-fade-in {
-    @apply opacity-0 transition-opacity duration-700 ease-out;
-  }
-  
-  .image-fade-in.loaded {
-    @apply opacity-100;
-  }
+/* Global styling */
+.luxury-container {
+  @apply container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
 }
 
-/* Custom Font Settings */
-@layer base {
-  body {
-    font-family: 'Inter', system-ui, sans-serif;
-  }
-  
-  .font-serif {
-    font-family: 'Cormorant', serif;
-  }
-  
-  .font-sans {
-    font-family: 'Inter', system-ui, sans-serif;
-  }
+.section-padding {
+  @apply py-16 md:py-24;
 }
 
-/* Custom Animations */
-.stagger-animation > * {
-  opacity: 0;
-  transform: translateY(20px);
+.gold-separator {
+  @apply w-20 h-1 bg-luxury-gold my-3;
 }
 
-.stagger-animation > *:nth-child(1) {
-  animation: slideUp 0.7s 0.1s ease-out forwards;
+/* Animation utilities */
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
 }
 
-.stagger-animation > *:nth-child(2) {
-  animation: slideUp 0.7s 0.2s ease-out forwards;
-}
-
-.stagger-animation > *:nth-child(3) {
-  animation: slideUp 0.7s 0.3s ease-out forwards;
-}
-
-.stagger-animation > *:nth-child(4) {
-  animation: slideUp 0.7s 0.4s ease-out forwards;
-}
-
-.stagger-animation > *:nth-child(5) {
-  animation: slideUp 0.7s 0.5s ease-out forwards;
-}
-
-.stagger-animation > *:nth-child(6) {
-  animation: slideUp 0.7s 0.6s ease-out forwards;
-}
-
-/* Smooth scrolling */
-.smooth-scroll-container {
-  scroll-behavior: smooth;
-}
-
-/* Parallax effect */
-.parallax-container {
-  overflow: hidden;
-  position: relative;
-}
-
-.parallax-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 130%;
-  transform: translateY(0);
-  transition: transform 0.1s linear;
-  will-change: transform;
-  background-size: cover;
-  background-position: center;
-  z-index: -1;
-}
-
-/* Smooth hover transitions */
-.hover-transition {
-  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+/* Responsive text utils */
+.text-balance {
+  text-wrap: balance;
 }
