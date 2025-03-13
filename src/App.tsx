@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -45,8 +44,7 @@ const App = () => (
               <Route path="/blog" element={<Blog />} />
               <Route path="/crypto-buying" element={<CryptoBuying />} />
               <Route path="/uae-know-how" element={<UAEKnowHow />} />
-              <Route path="/uae-know-how/:areaId" element={<AreaDetail />} />
-              <Route path="/uae-know-how/:categoryId" element={<UAEKnowHowDetail />} />
+              <Route path="/uae-know-how/:areaId" element={<UAEKnowHowDetail />} />
               <Route path="/about-us" element={<AboutUs />} />
               <Route path="/admin/property-upload" element={<PropertyUpload />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
