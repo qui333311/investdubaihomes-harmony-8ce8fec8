@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -89,7 +88,7 @@ const Navbar = () => {
               </DropdownMenu>
 
               <Button className="bg-luxury-gold hover:bg-luxury-gold/90 text-white" asChild>
-                <Link to="/contact">{translate("Book Consultation")}</Link>
+                <Link to="/contact#consultation">{translate("Book Consultation")}</Link>
               </Button>
             </div>
           </div>
@@ -144,7 +143,7 @@ const Navbar = () => {
                 onClick={() => setIsMenuOpen(false)}
                 asChild
               >
-                <Link to="/contact">{translate("Book Consultation")}</Link>
+                <Link to="/contact#consultation">{translate("Book Consultation")}</Link>
               </Button>
             </div>
           </div>
