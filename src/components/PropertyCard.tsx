@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -18,7 +19,6 @@ export interface PropertyProps {
   roi: number;
   imageUrl: string;
   status: 'ready' | 'offplan';
-  city?: string; // Added city property as optional
 }
 
 interface PropertyCardProps {

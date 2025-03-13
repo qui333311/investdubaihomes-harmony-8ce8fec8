@@ -17,26 +17,8 @@ const EmailSubscription = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Validate email
-    if (!email || !email.includes('@') || !email.includes('.')) {
-      toast({
-        title: translate("Invalid Email"),
-        description: translate("Please enter a valid email address."),
-        variant: "destructive"
-      });
-      setIsSubmitting(false);
-      return;
-    }
-    
-    // In a real implementation, we would send this to a backend API
-    // For now, we'll simulate the API call
-    console.log("Subscribing email:", email);
-    
-    // Simulate sending email to admin team
+    // Simulate API call
     setTimeout(() => {
-      // In real implementation, this would be an API call to send email to admin team
-      console.log("Email notification sent to admin team about new subscriber:", email);
-      
       setIsSubmitting(false);
       setIsSubscribed(true);
       setEmail("");
