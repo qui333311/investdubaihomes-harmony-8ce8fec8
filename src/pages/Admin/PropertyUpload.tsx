@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -15,7 +14,7 @@ import {
   Building2, 
   Bed, 
   Bath, 
-  SquareFoot, 
+  Square, 
   DollarSign, 
   Map, 
   BadgeInfo, 
@@ -286,7 +285,7 @@ const PropertyUpload = () => {
               {/* Property Details */}
               <div className="space-y-4">
                 <h2 className="text-xl font-semibold flex items-center gap-2">
-                  <SquareFoot className="h-5 w-5 text-luxury-gold" />
+                  <Square className="h-5 w-5 text-luxury-gold" />
                   {translate("Property Details")}
                 </h2>
                 
@@ -369,7 +368,7 @@ const PropertyUpload = () => {
                   
                   <div>
                     <Label htmlFor="area" className="flex items-center gap-1">
-                      <SquareFoot className="h-4 w-4" /> {translate("Area (sq.ft)")}
+                      <Square className="h-4 w-4" /> {translate("Area (sq.ft)")}
                     </Label>
                     <Input
                       id="area"
