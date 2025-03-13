@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -46,110 +45,7 @@ const KnowHowCategories = () => {
       ],
       path: "/uae-know-how/banking"
     },
-    {
-      title: translate("Schools"),
-      icon: <School className="h-10 w-10 text-luxury-gold" />,
-      description: translate("Information about international and local schools in Dubai and Ras Al Khaimah."),
-      details: [
-        translate("British Curriculum Schools: GEMS, Kings School"),
-        translate("American Curriculum: American School of Dubai"),
-        translate("IB Schools: Dubai International Academy"),
-        translate("Annual Fees: 45,000-100,000 AED"),
-        translate("Admission Process: Assessment tests, interviews")
-      ],
-      path: "/uae-know-how/schools"
-    },
-    {
-      title: translate("Universities"),
-      icon: <GraduationCap className="h-10 w-10 text-luxury-gold" />,
-      description: translate("Explore higher education options in the UAE including international campuses."),
-      details: [
-        translate("Top Universities: NYU Abu Dhabi, Heriot-Watt Dubai"),
-        translate("Scholarship Programs: Merit-based, Emirati support"),
-        translate("Program Types: Undergraduate, Masters, PhD"),
-        translate("Tuition Range: 40,000-120,000 AED per year"),
-        translate("Student Visa Process: University sponsorship")
-      ],
-      path: "/uae-know-how/universities"
-    },
-    {
-      title: translate("Offshore Company Setup"),
-      icon: <Globe className="h-10 w-10 text-luxury-gold" />,
-      description: translate("Complete guide to establishing offshore companies in the UAE free zones."),
-      details: [
-        translate("Free Zone Options: JAFZA, DMCC, RAK ICC"),
-        translate("Setup Cost: Starting from 15,000 AED"),
-        translate("Required Documents: Passport copies, bank reference"),
-        translate("Timeline: 3-7 working days"),
-        translate("Benefits: 0% tax, 100% ownership")
-      ],
-      path: "/uae-know-how/offshore"
-    },
-    {
-      title: translate("Legal Assistance"),
-      icon: <Scale className="h-10 w-10 text-luxury-gold" />,
-      description: translate("Legal services for property purchase, company formation, and residency matters."),
-      details: [
-        translate("Property Purchase Legal Support"),
-        translate("Business Setup Documentation"),
-        translate("Residency Permit Applications"),
-        translate("Contract Review and Drafting"),
-        translate("Dispute Resolution Services")
-      ],
-      path: "/uae-know-how/legal"
-    },
-    {
-      title: translate("Property Maintenance"),
-      icon: <Wrench className="h-10 w-10 text-luxury-gold" />,
-      description: translate("Maintenance services and solutions for property owners in the UAE."),
-      details: [
-        translate("24/7 Emergency Services"),
-        translate("Annual Maintenance Contracts"),
-        translate("HVAC System Servicing"),
-        translate("Pool and Garden Maintenance"),
-        translate("Building Systems Inspection")
-      ],
-      path: "/uae-know-how/maintenance"
-    },
-    {
-      title: translate("Interior Design"),
-      icon: <Paintbrush className="h-10 w-10 text-luxury-gold" />,
-      description: translate("Interior design and property upgrade services for investors and homeowners."),
-      details: [
-        translate("Full Home Design Services"),
-        translate("Furniture Selection and Procurement"),
-        translate("Kitchen and Bathroom Renovation"),
-        translate("Smart Home Integration"),
-        translate("Project Management Services")
-      ],
-      path: "/uae-know-how/interior-design"
-    },
-    {
-      title: translate("Short Term Rentals"),
-      icon: <Calendar className="h-10 w-10 text-luxury-gold" />,
-      description: translate("Guide to short-term rental regulations, management, and potential returns."),
-      details: [
-        translate("License Requirements: DTCM approval"),
-        translate("Average Daily Rates: 500-2,000 AED"),
-        translate("Property Management Services"),
-        translate("Marketing Platforms: Airbnb, Booking.com"),
-        translate("ROI: 8-12% annual returns")
-      ],
-      path: "/uae-know-how/short-term-rentals"
-    },
-    {
-      title: translate("Long Term Rentals"),
-      icon: <Home className="h-10 w-10 text-luxury-gold" />,
-      description: translate("Everything you need to know about long-term property rentals in the UAE."),
-      details: [
-        translate("Tenancy Contract Requirements"),
-        translate("Security Deposit: 5% of annual rent"),
-        translate("Maintenance Responsibilities"),
-        translate("Annual Rent Increases: RERA calculator"),
-        translate("ROI: 5-8% annual returns")
-      ],
-      path: "/uae-know-how/long-term-rentals"
-    },
+    // ... keep existing code (remaining categories)
   ];
 
   const handleCategoryClick = (path: string) => {
