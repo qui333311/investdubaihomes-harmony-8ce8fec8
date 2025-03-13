@@ -2,11 +2,11 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ContactForm from "@/components/ContactForm";
-import { Phone, Mail, MapPin, Linkedin, Instagram, Twitter, Youtube, MessageCircle } from "lucide-react";
+import { Phone, Mail, MapPin, Linkedin, Instagram, Twitter, Youtube, MessageCircle, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import HeroSection from "@/components/HeroSection";
 import { useLanguage } from "@/contexts/LanguageContext";
+import EnhancedContactForm from "@/components/EnhancedContactForm";
 
 const Contact = () => {
   const { translate } = useLanguage();
@@ -25,91 +25,104 @@ const Contact = () => {
           showCta={false}
         />
         
-        {/* Contact Form Section - Now at the top */}
-        <section className="py-12 bg-gray-50">
+        {/* Main contact section with split layout */}
+        <section className="py-16 bg-gray-50">
           <div className="luxury-container">
-            <div className="bg-white rounded-lg shadow-lg p-8 mb-12">
-              <h2 className="text-2xl font-bold mb-6">{translate("Send Us a Message")}</h2>
-              <ContactForm />
-            </div>
-            
-            {/* Map Section */}
-            <div className="rounded-lg overflow-hidden shadow-lg h-[400px] mb-12">
-              <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3613.1867105621236!2d55.13459287596828!3d25.076993077812768!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f6b5402c126e3%3A0xb9511e6655c46d7c!2sDubai%20Marina!5e0!3m2!1sen!2sae!4v1697106781320!5m2!1sen!2sae" 
-                width="100%" 
-                height="100%" 
-                style={{ border: 0 }} 
-                allowFullScreen 
-                loading="lazy" 
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
-            </div>
-            
-            {/* Contact Information moved to the bottom */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              <div className="bg-white p-8 rounded-lg shadow-lg">
-                <h3 className="text-xl font-bold mb-4 flex items-center">
-                  <MapPin className="h-5 w-5 text-luxury-gold mr-2" /> {translate("Our Location")}
-                </h3>
-                <p className="text-gray-600 pl-7">
-                  Marina Plaza, Dubai Marina<br />
-                  Dubai, United Arab Emirates
-                </p>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+              {/* Left side - Contact form */}
+              <div className="bg-white rounded-xl shadow-xl p-8">
+                <div className="mb-8">
+                  <div className="flex items-center gap-2 text-luxury-gold mb-4">
+                    <Calendar className="h-6 w-6" />
+                    <h2 className="text-2xl font-bold">{translate("Book a Consultation")}</h2>
+                  </div>
+                  <p className="text-gray-600">
+                    {translate("Fill out the form below to schedule a personalized consultation with our property or investment experts.")}
+                  </p>
+                </div>
+                
+                <EnhancedContactForm />
               </div>
               
-              <div className="bg-white p-8 rounded-lg shadow-lg">
-                <h3 className="text-xl font-bold mb-4 flex items-center">
-                  <Phone className="h-5 w-5 text-luxury-gold mr-2" /> {translate("Call Us")}
-                </h3>
-                <p className="text-gray-600 pl-7">
-                  +971 50 123 4567<br />
-                  +971 4 123 4567
-                </p>
-              </div>
-              
-              <div className="bg-white p-8 rounded-lg shadow-lg">
-                <h3 className="text-xl font-bold mb-4 flex items-center">
-                  <Mail className="h-5 w-5 text-luxury-gold mr-2" /> {translate("Email Us")}
-                </h3>
-                <p className="text-gray-600 pl-7">
-                  info@memydubai.com<br />
-                  sales@memydubai.com
-                </p>
-              </div>
-            </div>
-            
-            <div className="mt-12 bg-white p-8 rounded-lg shadow-lg">
-              <h3 className="text-2xl font-bold mb-6">{translate("Connect With Us")}</h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                  <h4 className="text-lg font-medium mb-4">{translate("Instant Messaging")}</h4>
-                  <div className="flex flex-wrap gap-4">
-                    <Button size="lg" className="bg-[#25D366] hover:bg-[#25D366]/90">
-                      <MessageCircle className="mr-2 h-5 w-5" /> {translate("WhatsApp")}
-                    </Button>
+              {/* Right side - Contact information and map */}
+              <div className="space-y-10">
+                <div className="bg-white rounded-xl shadow-xl p-8">
+                  <h3 className="text-xl font-bold mb-6">{translate("Contact Information")}</h3>
+                  
+                  <div className="space-y-6">
+                    <div className="flex gap-4">
+                      <div className="bg-gray-100 rounded-full p-3">
+                        <MapPin className="h-6 w-6 text-luxury-gold" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold">{translate("Office Address")}</h4>
+                        <p className="text-gray-600">
+                          Marina Plaza, Dubai Marina<br />
+                          Dubai, United Arab Emirates
+                        </p>
+                      </div>
+                    </div>
                     
-                    <Button size="lg" className="bg-[#0088cc] hover:bg-[#0088cc]/90">
-                      <MessageCircle className="mr-2 h-5 w-5" /> {translate("Telegram")}
-                    </Button>
+                    <div className="flex gap-4">
+                      <div className="bg-gray-100 rounded-full p-3">
+                        <Phone className="h-6 w-6 text-luxury-gold" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold">{translate("Call Us")}</h4>
+                        <p className="text-gray-600">
+                          +971 50 123 4567<br />
+                          +971 4 123 4567
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex gap-4">
+                      <div className="bg-gray-100 rounded-full p-3">
+                        <Mail className="h-6 w-6 text-luxury-gold" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold">{translate("Email Us")}</h4>
+                        <p className="text-gray-600">
+                          info@memydubai.com<br />
+                          sales@memydubai.com
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 
-                <div>
-                  <h4 className="text-lg font-medium mb-4">{translate("Social Media")}</h4>
+                {/* Map */}
+                <div className="rounded-xl overflow-hidden shadow-xl h-[300px]">
+                  <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3613.1867105621236!2d55.13459287596828!3d25.076993077812768!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f6b5402c126e3%3A0xb9511e6655c46d7c!2sDubai%20Marina!5e0!3m2!1sen!2sae!4v1697106781320!5m2!1sen!2sae" 
+                    width="100%" 
+                    height="100%" 
+                    style={{ border: 0 }} 
+                    allowFullScreen 
+                    loading="lazy" 
+                    referrerPolicy="no-referrer-when-downgrade"
+                  ></iframe>
+                </div>
+                
+                {/* Social media */}
+                <div className="bg-white rounded-xl shadow-xl p-8">
+                  <h3 className="text-xl font-bold mb-6">{translate("Connect With Us")}</h3>
+                  
                   <div className="flex flex-wrap gap-4">
-                    <a href="#" className="p-3 bg-gray-100 rounded-full hover:bg-luxury-gold hover:text-white transition-colors">
-                      <Linkedin className="h-6 w-6" />
+                    <a href="#" className="bg-gray-100 p-3 rounded-full hover:bg-luxury-gold hover:text-white transition-colors">
+                      <Linkedin className="h-5 w-5" />
                     </a>
-                    <a href="#" className="p-3 bg-gray-100 rounded-full hover:bg-luxury-gold hover:text-white transition-colors">
-                      <Instagram className="h-6 w-6" />
+                    <a href="#" className="bg-gray-100 p-3 rounded-full hover:bg-luxury-gold hover:text-white transition-colors">
+                      <Instagram className="h-5 w-5" />
                     </a>
-                    <a href="#" className="p-3 bg-gray-100 rounded-full hover:bg-luxury-gold hover:text-white transition-colors">
-                      <Twitter className="h-6 w-6" />
+                    <a href="#" className="bg-gray-100 p-3 rounded-full hover:bg-luxury-gold hover:text-white transition-colors">
+                      <Twitter className="h-5 w-5" />
                     </a>
-                    <a href="#" className="p-3 bg-gray-100 rounded-full hover:bg-luxury-gold hover:text-white transition-colors">
-                      <Youtube className="h-6 w-6" />
+                    <a href="#" className="bg-gray-100 p-3 rounded-full hover:bg-luxury-gold hover:text-white transition-colors">
+                      <Youtube className="h-5 w-5" />
+                    </a>
+                    <a href="#" className="bg-gray-100 p-3 rounded-full hover:bg-luxury-gold hover:text-white transition-colors">
+                      <MessageCircle className="h-5 w-5" />
                     </a>
                   </div>
                 </div>

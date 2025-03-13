@@ -18,6 +18,7 @@ import UAEKnowHow from "./pages/UAEKnowHow";
 import AboutUs from "./pages/AboutUs";
 import AreaDetail from "./pages/AreaDetail";
 import PropertyUpload from "./pages/Admin/PropertyUpload";
+import UAEKnowHowDetail from "./pages/UAEKnowHowDetail";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { CurrencyProvider } from "./contexts/CurrencyContext";
 import ScrollReset from "./components/ScrollReset";
@@ -45,6 +46,7 @@ const App = () => (
               <Route path="/crypto-buying" element={<CryptoBuying />} />
               <Route path="/uae-know-how" element={<UAEKnowHow />} />
               <Route path="/uae-know-how/:areaId" element={<AreaDetail />} />
+              <Route path="/uae-know-how/:categoryId" element={<UAEKnowHowDetail />} />
               <Route path="/about-us" element={<AboutUs />} />
               <Route path="/admin/property-upload" element={<PropertyUpload />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
