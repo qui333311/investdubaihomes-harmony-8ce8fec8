@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -45,7 +46,110 @@ const KnowHowCategories = () => {
       ],
       path: "/uae-know-how/banking"
     },
-    // ... keep existing code (remaining categories)
+    {
+      title: translate("Schools in UAE"),
+      icon: <School className="h-10 w-10 text-luxury-gold" />,
+      description: translate("Information about international and local schools in Dubai and Ras Al Khaimah."),
+      details: [
+        translate("British Curriculum Schools: GCSE and A-Levels"),
+        translate("American Curriculum Schools: US High School Diploma"),
+        translate("IB Schools: International Baccalaureate curriculum"),
+        translate("School Ratings: KHDA inspection results"),
+        translate("Admission Process: Requirements and deadlines")
+      ],
+      path: "/uae-know-how/schools"
+    },
+    {
+      title: translate("Universities in UAE"),
+      icon: <GraduationCap className="h-10 w-10 text-luxury-gold" />,
+      description: translate("Explore higher education options in the UAE including international campuses."),
+      details: [
+        translate("Dubai International Academic City: Education hub"),
+        translate("International University Branches: NYU, Heriot-Watt, Sorbonne"),
+        translate("Undergraduate Programs: Bachelor degrees"),
+        translate("Postgraduate Options: Master's and PhD programs"),
+        translate("Student Visas: Requirements and process")
+      ],
+      path: "/uae-know-how/universities"
+    },
+    {
+      title: translate("Offshore Company Setup"),
+      icon: <Globe className="h-10 w-10 text-luxury-gold" />,
+      description: translate("Complete guide to establishing offshore companies in the UAE free zones."),
+      details: [
+        translate("JAFZA Offshore: Jebel Ali Free Zone"),
+        translate("RAK ICC: Ras Al Khaimah International Corporate Centre"),
+        translate("DMCC: Dubai Multi Commodities Centre"),
+        translate("Setup Requirements: Documents and fees"),
+        translate("Banking for Offshore Companies: Account opening process")
+      ],
+      path: "/uae-know-how/offshore"
+    },
+    {
+      title: translate("Legal Assistance"),
+      icon: <Scale className="h-10 w-10 text-luxury-gold" />,
+      description: translate("Legal services for property purchase, company formation, and residency matters."),
+      details: [
+        translate("Property Purchase Legalities: Title deed verification"),
+        translate("Business Setup Documentation: Legal structure advice"),
+        translate("Residency Permit Applications: Visa processing"),
+        translate("Contract Review: Lease and purchase agreements"),
+        translate("Dispute Resolution: RERA mediation and arbitration")
+      ],
+      path: "/uae-know-how/legal"
+    },
+    {
+      title: translate("Property Maintenance"),
+      icon: <Wrench className="h-10 w-10 text-luxury-gold" />,
+      description: translate("Maintenance services and solutions for property owners in the UAE."),
+      details: [
+        translate("Annual Maintenance Contracts: Comprehensive care"),
+        translate("Emergency Services: 24/7 support"),
+        translate("HVAC System Servicing: AC maintenance"),
+        translate("Pool and Garden Maintenance: Outdoor upkeep"),
+        translate("Property Inspection Services: Condition assessments")
+      ],
+      path: "/uae-know-how/maintenance"
+    },
+    {
+      title: translate("Interior Design"),
+      icon: <Paintbrush className="h-10 w-10 text-luxury-gold" />,
+      description: translate("Interior design and property upgrade services for investors and homeowners."),
+      details: [
+        translate("Full Home Design Services: Concept to completion"),
+        translate("Furniture Packages for Investors: Ready-to-rent solutions"),
+        translate("Kitchen and Bathroom Renovation: High-value upgrades"),
+        translate("Smart Home Integration: Technology installations"),
+        translate("Upgrade Consultations: ROI-focused improvements")
+      ],
+      path: "/uae-know-how/interior-design"
+    },
+    {
+      title: translate("Short Term Rentals"),
+      icon: <Calendar className="h-10 w-10 text-luxury-gold" />,
+      description: translate("Guide to short-term rental regulations, management, and potential returns."),
+      details: [
+        translate("Licensing Requirements: DTCM permits"),
+        translate("Market Performance Data: Occupancy rates and ADR"),
+        translate("Property Management Services: Guest handling"),
+        translate("Marketing and Listing Optimization: Platform strategies"),
+        translate("Return on Investment Analysis: Cost vs. income")
+      ],
+      path: "/uae-know-how/short-term-rentals"
+    },
+    {
+      title: translate("Long Term Rentals"),
+      icon: <Home className="h-10 w-10 text-luxury-gold" />,
+      description: translate("Everything you need to know about long-term property rentals in the UAE."),
+      details: [
+        translate("Tenancy Contract Requirements: Ejari registration"),
+        translate("Landlord and Tenant Rights: Legal protections"),
+        translate("Security Deposits and Fees: Standard practices"),
+        translate("Rent Payment Structures: Cheque options"),
+        translate("Property Management Services: Tenant sourcing")
+      ],
+      path: "/uae-know-how/long-term-rentals"
+    }
   ];
 
   const handleCategoryClick = (path: string) => {

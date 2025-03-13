@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -44,6 +45,19 @@ const App = () => (
               <Route path="/blog" element={<Blog />} />
               <Route path="/crypto-buying" element={<CryptoBuying />} />
               <Route path="/uae-know-how" element={<UAEKnowHow />} />
+              
+              {/* UAE Know How Category Detail Routes */}
+              <Route path="/uae-know-how/visa" element={<UAEKnowHowDetail />} />
+              <Route path="/uae-know-how/banking" element={<UAEKnowHowDetail />} />
+              <Route path="/uae-know-how/schools" element={<UAEKnowHowDetail />} />
+              <Route path="/uae-know-how/universities" element={<UAEKnowHowDetail />} />
+              <Route path="/uae-know-how/offshore" element={<UAEKnowHowDetail />} />
+              <Route path="/uae-know-how/legal" element={<UAEKnowHowDetail />} />
+              <Route path="/uae-know-how/maintenance" element={<UAEKnowHowDetail />} />
+              <Route path="/uae-know-how/interior-design" element={<UAEKnowHowDetail />} />
+              <Route path="/uae-know-how/short-term-rentals" element={<UAEKnowHowDetail />} />
+              <Route path="/uae-know-how/long-term-rentals" element={<UAEKnowHowDetail />} />
+              
               <Route path="/uae-know-how/:areaId" element={<UAEKnowHowDetail />} />
               <Route path="/about-us" element={<AboutUs />} />
               <Route path="/admin/property-upload" element={<PropertyUpload />} />

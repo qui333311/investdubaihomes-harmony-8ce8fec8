@@ -1,6 +1,5 @@
 
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HeroAndIntro from "@/components/uae-know-how/HeroAndIntro";
@@ -20,6 +19,9 @@ const UAEKnowHow = () => {
       <main className="flex-grow pt-20">
         <HeroAndIntro />
         
+        {/* Categories Section - Moved up for better visibility */}
+        <KnowHowCategories />
+        
         <section className="section-padding bg-white">
           <div className="luxury-container mb-8">
             <div>
@@ -33,8 +35,6 @@ const UAEKnowHow = () => {
           
           <LocationTabs />
         </section>
-        
-        <KnowHowCategories />
         
         <EmailSubscription />
         
