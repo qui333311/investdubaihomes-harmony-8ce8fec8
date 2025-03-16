@@ -1,10 +1,12 @@
 
 import React, { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Mail, CheckCircle2 } from "lucide-react";
+import { Mail, CheckCircle2, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Link } from "react-router-dom";
 
 const EmailSubscription = () => {
   const { translate } = useLanguage();
@@ -12,9 +14,20 @@ const EmailSubscription = () => {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [consentGiven, setConsentGiven] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!consentGiven) {
+      toast({
+        title: translate("Consent Required"),
+        description: translate("Please agree to our terms and privacy policy before subscribing."),
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setIsSubmitting(true);
     
     try {
@@ -25,7 +38,9 @@ const EmailSubscription = () => {
       //   headers: { 'Content-Type': 'application/json' },
       //   body: JSON.stringify({
       //     email: email,
-      //     listName: "UAE Market Insights"
+      //     listName: "UAE Market Insights",
+      //     consentTimestamp: new Date().toISOString(),
+      //     consentType: "explicit"
       //   })
       // });
       
@@ -70,7 +85,7 @@ const EmailSubscription = () => {
                 </p>
                 
                 {!isSubscribed ? (
-                  <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+                  <form onSubmit={handleSubmit} className="flex flex-col gap-3">
                     <Input
                       type="email"
                       placeholder={translate("Your Email")}
@@ -79,13 +94,46 @@ const EmailSubscription = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       required
                     />
-                    <Button 
-                      type="submit" 
-                      className="bg-luxury-gold hover:bg-luxury-gold/90 text-white"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? "..." : translate("Subscribe")}
-                    </Button>
+                    
+                    <div className="flex items-start space-x-2 mb-2">
+                      <Checkbox 
+                        id="consent" 
+                        checked={consentGiven}
+                        onCheckedChange={(checked) => setConsentGiven(checked === true)}
+                        className="data-[state=checked]:bg-luxury-gold"
+                      />
+                      <div className="grid gap-1.5 leading-none">
+                        <label
+                          htmlFor="consent"
+                          className="text-sm text-gray-200 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                          {translate("I agree to receive marketing emails and understand I can unsubscribe at any time.")}
+                        </label>
+                      </div>
+                    </div>
+                    
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <Button 
+                        type="submit" 
+                        className="bg-luxury-gold hover:bg-luxury-gold/90 text-white"
+                        disabled={isSubmitting || !consentGiven}
+                      >
+                        {isSubmitting ? "..." : translate("Subscribe")}
+                      </Button>
+                    </div>
+                    
+                    <div className="flex items-center mt-2 text-xs text-gray-300">
+                      <Lock className="h-3 w-3 mr-1" />
+                      <span>
+                        {translate("By subscribing, you agree to our")} 
+                        <Link to="/terms" className="underline ml-1 hover:text-luxury-gold">
+                          {translate("Terms of Service")}
+                        </Link> {translate("and")} 
+                        <Link to="/privacy" className="underline ml-1 hover:text-luxury-gold">
+                          {translate("Privacy Policy")}
+                        </Link>
+                      </span>
+                    </div>
                   </form>
                 ) : (
                   <div className="flex items-center gap-2 text-white">
