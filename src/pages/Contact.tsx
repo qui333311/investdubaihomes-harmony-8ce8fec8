@@ -36,7 +36,7 @@ const Contact = () => {
             {/* Map Section */}
             <div className="rounded-lg overflow-hidden shadow-lg h-[400px] mb-12">
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3613.1867105621236!2d55.13459287596828!3d25.076993077812768!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f6b5402c126e3%3A0xb9511e6655c46d7c!2sDubai%20Marina!5e0!3m2!1sen!2sae!4v1697106781320!5m2!1sen!2sae" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.2042407294456!2d55.282264275971275!3d25.18470828389628!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f682def25fd4d%3A0x683fec19fc5cc068!2sBusiness%20Bay%2C%20Dubai!5e0!3m2!1sen!2sae!4v1714059122392!5m2!1sen!2sae"
                 width="100%" 
                 height="100%" 
                 style={{ border: 0 }} 
@@ -53,7 +53,7 @@ const Contact = () => {
                   <MapPin className="h-5 w-5 text-luxury-gold mr-2" /> {translate("Our Location")}
                 </h3>
                 <p className="text-gray-600 pl-7">
-                  Marina Plaza, Dubai Marina<br />
+                  Business Bay<br />
                   Dubai, United Arab Emirates
                 </p>
               </div>
@@ -63,8 +63,8 @@ const Contact = () => {
                   <Phone className="h-5 w-5 text-luxury-gold mr-2" /> {translate("Call Us")}
                 </h3>
                 <p className="text-gray-600 pl-7">
-                  +971 50 123 4567<br />
-                  +971 4 123 4567
+                  +971 58 599 9458<br />
+                  +971 4 566 7890
                 </p>
               </div>
               
@@ -73,7 +73,7 @@ const Contact = () => {
                   <Mail className="h-5 w-5 text-luxury-gold mr-2" /> {translate("Email Us")}
                 </h3>
                 <p className="text-gray-600 pl-7">
-                  info@memydubai.com<br />
+                  contact@memydubai.com<br />
                   sales@memydubai.com
                 </p>
               </div>

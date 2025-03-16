@@ -27,13 +27,30 @@ const ContactForm: React.FC = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsLoading(false);
+    try {
+      // Send email - this would connect to your email service
+      // For now, we'll simulate this with a timeout
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // In a real implementation, you would send an API request to your backend
+      // Example with fetch:
+      // const response = await fetch('/api/send-email', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({
+      //     to: "contact@memydubai.com",
+      //     subject: `New Contact Form Submission: ${formData.subject}`,
+      //     name: formData.name,
+      //     email: formData.email,
+      //     phone: formData.phone,
+      //     message: formData.message
+      //   })
+      // });
+      
       toast({
         title: translate("Message Sent!"),
         description: translate("Thank you for your inquiry. We'll get back to you soon."),
@@ -47,7 +64,16 @@ const ContactForm: React.FC = () => {
         subject: "",
         message: "",
       });
-    }, 1500);
+    } catch (error) {
+      console.error("Error sending message:", error);
+      toast({
+        title: translate("Error"),
+        description: translate("There was a problem sending your message. Please try again."),
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -63,7 +89,7 @@ const ContactForm: React.FC = () => {
             <MapPin className="h-5 w-5 mr-3 text-luxury-gold mt-1" />
             <div>
               <h4 className="font-semibold">{translate("Location")}</h4>
-              <p className="text-gray-600">{translate("Dubai Marina, Dubai, UAE")}</p>
+              <p className="text-gray-600">{translate("Business Bay, Dubai, UAE")}</p>
             </div>
           </div>
           
@@ -71,7 +97,7 @@ const ContactForm: React.FC = () => {
             <Mail className="h-5 w-5 mr-3 text-luxury-gold mt-1" />
             <div>
               <h4 className="font-semibold">{translate("Email")}</h4>
-              <p className="text-gray-600">info@memydubai.com</p>
+              <p className="text-gray-600">contact@memydubai.com</p>
             </div>
           </div>
           
@@ -79,7 +105,7 @@ const ContactForm: React.FC = () => {
             <Phone className="h-5 w-5 mr-3 text-luxury-gold mt-1" />
             <div>
               <h4 className="font-semibold">{translate("Phone")}</h4>
-              <p className="text-gray-600">+971 50 123 4567</p>
+              <p className="text-gray-600">+971 58 599 9458</p>
             </div>
           </div>
         </div>
@@ -134,7 +160,7 @@ const ContactForm: React.FC = () => {
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              placeholder={translate("+1 234 567 8900")}
+              placeholder={translate("+971 58 123 4567")}
             />
           </div>
           

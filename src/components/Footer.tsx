@@ -116,16 +116,16 @@ const Footer = () => {
               <li className="flex items-start">
                 <MapPin className="mr-2 h-5 w-5 text-luxury-gold flex-shrink-0 mt-1" />
                 <span className="text-gray-300">
-                  Dubai Marina, Dubai, UAE
+                  Business Bay, Dubai, UAE
                 </span>
               </li>
               <li className="flex items-center">
                 <Phone className="mr-2 h-5 w-5 text-luxury-gold" />
-                <span className="text-gray-300">+971 50 123 4567</span>
+                <span className="text-gray-300">+971 58 599 9458</span>
               </li>
               <li className="flex items-center">
                 <Mail className="mr-2 h-5 w-5 text-luxury-gold" />
-                <span className="text-gray-300">info@memydubai.com</span>
+                <span className="text-gray-300">contact@memydubai.com</span>
               </li>
             </ul>
           </div>

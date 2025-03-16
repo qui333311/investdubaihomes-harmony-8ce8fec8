@@ -13,13 +13,25 @@ const EmailSubscription = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      // In a real implementation, you would send an API request to your backend
+      // Example with fetch:
+      // const response = await fetch('/api/subscribe', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({
+      //     email: email,
+      //     listName: "UAE Market Insights"
+      //   })
+      // });
+      
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
       setIsSubscribed(true);
       setEmail("");
       
@@ -27,7 +39,16 @@ const EmailSubscription = () => {
         title: translate("Thanks for subscribing!"),
         description: translate("You'll receive our latest UAE market insights."),
       });
-    }, 1000);
+    } catch (error) {
+      console.error("Error subscribing:", error);
+      toast({
+        title: translate("Error"),
+        description: translate("There was a problem with your subscription. Please try again."),
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
