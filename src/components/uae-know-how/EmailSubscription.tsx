@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Mail, CheckCircle2, Lock } from "lucide-react";
+import { Mail, CheckCircle2, Lock, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
@@ -15,6 +15,7 @@ const EmailSubscription = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [consentGiven, setConsentGiven] = useState(false);
+  const [showDataInfo, setShowDataInfo] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,7 +41,12 @@ const EmailSubscription = () => {
       //     email: email,
       //     listName: "UAE Market Insights",
       //     consentTimestamp: new Date().toISOString(),
-      //     consentType: "explicit"
+      //     consentType: "explicit",
+      //     consentRecord: {
+      //       ipAddress: "collected-by-server",
+      //       userAgent: navigator.userAgent,
+      //       timestamp: new Date().toISOString()
+      //     }
       //   })
       // });
       
@@ -49,6 +55,7 @@ const EmailSubscription = () => {
       
       setIsSubscribed(true);
       setEmail("");
+      setConsentGiven(false);
       
       toast({
         title: translate("Thanks for subscribing!"),
@@ -111,6 +118,29 @@ const EmailSubscription = () => {
                         </label>
                       </div>
                     </div>
+
+                    <div className="flex items-center mb-2">
+                      <Button 
+                        type="button" 
+                        variant="link" 
+                        className="p-0 h-auto text-xs text-gray-300 underline hover:text-luxury-gold"
+                        onClick={() => setShowDataInfo(!showDataInfo)}
+                      >
+                        <Shield className="h-3 w-3 mr-1" />
+                        {translate("GDPR Compliance")}
+                      </Button>
+                    </div>
+                    
+                    {showDataInfo && (
+                      <div className="bg-white/10 p-4 rounded-md mb-3 text-xs text-gray-200">
+                        <p className="mb-2">
+                          {translate("We collect and process your personal data in accordance with applicable data protection laws, including GDPR and CCPA.")}
+                        </p>
+                        <p>
+                          {translate("Your data is securely stored and will be retained only for as long as necessary for the purposes it was collected.")}
+                        </p>
+                      </div>
+                    )}
                     
                     <div className="flex flex-col sm:flex-row gap-3">
                       <Button 

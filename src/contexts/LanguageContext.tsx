@@ -1,8 +1,16 @@
 
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
-// Define the language options
-export const languages = ["en", "fr"];
+// Define the language options with proper typing
+export interface LanguageOption {
+  code: string;
+  name: string;
+}
+
+export const languages: LanguageOption[] = [
+  { code: "en", name: "English" },
+  { code: "fr", name: "Français" }
+];
 
 // Define the type for the context
 type TranslationType = { [key: string]: string };
@@ -12,6 +20,7 @@ interface LanguageContextType {
   language: string;
   setLanguage: React.Dispatch<React.SetStateAction<string>>;
   translate: (key: string) => string;
+  currentLanguage: LanguageOption;
 }
 
 const LanguageContext = createContext<LanguageContextType>({} as LanguageContextType);
@@ -26,7 +35,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       "Mr.": "Mr.",
       "Mrs.": "Mrs.",
       "Ms.": "Ms.",
-      "Dr.": "Dr",
+      "Dr.": "Dr.",
       "First Name": "First Name",
       "Last Name": "Last Name",
       "Phone Number": "Phone Number",
@@ -43,6 +52,54 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       "Terms of Service": "Terms of Service",
       "and": "and",
       "Privacy Policy": "Privacy Policy",
+      "Message Sent!": "Message Sent!",
+      "Thank you for your inquiry. We'll get back to you soon.": "Thank you for your inquiry. We'll get back to you soon.",
+      "Error": "Error",
+      "There was a problem sending your message. Please try again.": "There was a problem sending your message. Please try again.",
+      "Contact Us": "Contact Us",
+      "Interested in investing in Dubai or Ras Al Khaimah properties? Fill out the form and our investment consultants will get back to you shortly.": "Interested in investing in Dubai or Ras Al Khaimah properties? Fill out the form and our investment consultants will get back to you shortly.",
+      "Location": "Location",
+      "Business Bay, Dubai, UAE": "Business Bay, Dubai, UAE",
+      "Email": "Email",
+      "Phone": "Phone",
+      "Connect With Us": "Connect With Us",
+      "Full Name": "Full Name",
+      "Subject": "Subject",
+      "Message": "Message",
+      "Sending...": "Sending...",
+      "Send Message": "Send Message",
+      "Subscribe to Updates": "Subscribe to Updates",
+      "Get UAE market insights delivered to your inbox": "Get UAE market insights delivered to your inbox",
+      "Your Email": "Your Email",
+      "Subscribe": "Subscribe",
+      "Thanks for subscribing!": "Thanks for subscribing!",
+      "You'll receive our latest UAE market insights.": "You'll receive our latest UAE market insights.",
+      "There was a problem with your subscription. Please try again.": "There was a problem with your subscription. Please try again.",
+      "We're here to help you with your Dubai property investment journey. Get in touch with our experts today.": "We're here to help you with your Dubai property investment journey. Get in touch with our experts today.",
+      "Send Us a Message": "Send Us a Message",
+      "Our Location": "Our Location",
+      "Call Us": "Call Us",
+      "Email Us": "Email Us",
+      "Instant Messaging": "Instant Messaging",
+      "WhatsApp": "WhatsApp",
+      "Telegram": "Telegram",
+      "Social Media": "Social Media",
+      // GDPR and Compliance translations
+      "Data Protection Notice": "Data Protection Notice",
+      "We collect and process your personal data in accordance with applicable data protection laws, including GDPR and CCPA.": "We collect and process your personal data in accordance with applicable data protection laws, including GDPR and CCPA.",
+      "Your Rights": "Your Rights",
+      "You have the right to access, rectify, delete, and port your personal data. You can also object to or restrict its processing.": "You have the right to access, rectify, delete, and port your personal data. You can also object to or restrict its processing.",
+      "Data Storage": "Data Storage",
+      "Your data is securely stored and will be retained only for as long as necessary for the purposes it was collected.": "Your data is securely stored and will be retained only for as long as necessary for the purposes it was collected.",
+      "Cookie Consent": "Cookie Consent",
+      "This website uses cookies to enhance your browsing experience and provide personalized services.": "This website uses cookies to enhance your browsing experience and provide personalized services.",
+      "Accept All Cookies": "Accept All Cookies",
+      "Reject Non-Essential Cookies": "Reject Non-Essential Cookies",
+      "Customize Cookie Preferences": "Customize Cookie Preferences",
+      "Learn more about how we use cookies in our": "Learn more about how we use cookies in our",
+      "Cookie Policy": "Cookie Policy",
+      "GDPR Compliance": "GDPR Compliance",
+      "Your data, your control": "Your data, your control"
     },
     fr: {
       "Title": "Titre",
@@ -67,6 +124,54 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       "Terms of Service": "Conditions d'utilisation",
       "and": "et",
       "Privacy Policy": "Politique de confidentialité",
+      "Message Sent!": "Message envoyé!",
+      "Thank you for your inquiry. We'll get back to you soon.": "Merci pour votre demande. Nous vous répondrons bientôt.",
+      "Error": "Erreur",
+      "There was a problem sending your message. Please try again.": "Un problème est survenu lors de l'envoi de votre message. Veuillez réessayer.",
+      "Contact Us": "Contactez-nous",
+      "Interested in investing in Dubai or Ras Al Khaimah properties? Fill out the form and our investment consultants will get back to you shortly.": "Intéressé par investir dans des propriétés à Dubaï ou à Ras Al Khaimah? Remplissez le formulaire et nos consultants en investissement vous recontacteront rapidement.",
+      "Location": "Emplacement",
+      "Business Bay, Dubai, UAE": "Business Bay, Dubaï, EAU",
+      "Email": "Email",
+      "Phone": "Téléphone",
+      "Connect With Us": "Connectez-vous avec nous",
+      "Full Name": "Nom complet",
+      "Subject": "Sujet",
+      "Message": "Message",
+      "Sending...": "Envoi en cours...",
+      "Send Message": "Envoyer le message",
+      "Subscribe to Updates": "Abonnez-vous aux mises à jour",
+      "Get UAE market insights delivered to your inbox": "Recevez des informations sur le marché des EAU dans votre boîte de réception",
+      "Your Email": "Votre email",
+      "Subscribe": "S'abonner",
+      "Thanks for subscribing!": "Merci de vous être abonné!",
+      "You'll receive our latest UAE market insights.": "Vous recevrez nos dernières informations sur le marché des EAU.",
+      "There was a problem with your subscription. Please try again.": "Un problème est survenu avec votre abonnement. Veuillez réessayer.",
+      "We're here to help you with your Dubai property investment journey. Get in touch with our experts today.": "Nous sommes là pour vous aider dans votre parcours d'investissement immobilier à Dubaï. Contactez nos experts dès aujourd'hui.",
+      "Send Us a Message": "Envoyez-nous un message",
+      "Our Location": "Notre emplacement",
+      "Call Us": "Appelez-nous",
+      "Email Us": "Envoyez-nous un email",
+      "Instant Messaging": "Messagerie instantanée",
+      "WhatsApp": "WhatsApp",
+      "Telegram": "Telegram",
+      "Social Media": "Réseaux sociaux",
+      // GDPR and Compliance translations
+      "Data Protection Notice": "Avis de protection des données",
+      "We collect and process your personal data in accordance with applicable data protection laws, including GDPR and CCPA.": "Nous collectons et traitons vos données personnelles conformément aux lois applicables sur la protection des données, y compris le RGPD et le CCPA.",
+      "Your Rights": "Vos droits",
+      "You have the right to access, rectify, delete, and port your personal data. You can also object to or restrict its processing.": "Vous avez le droit d'accéder, de rectifier, de supprimer et de transférer vos données personnelles. Vous pouvez également vous opposer à leur traitement ou le restreindre.",
+      "Data Storage": "Stockage des données",
+      "Your data is securely stored and will be retained only for as long as necessary for the purposes it was collected.": "Vos données sont stockées en toute sécurité et ne seront conservées que le temps nécessaire aux fins pour lesquelles elles ont été collectées.",
+      "Cookie Consent": "Consentement aux cookies",
+      "This website uses cookies to enhance your browsing experience and provide personalized services.": "Ce site web utilise des cookies pour améliorer votre expérience de navigation et fournir des services personnalisés.",
+      "Accept All Cookies": "Accepter tous les cookies",
+      "Reject Non-Essential Cookies": "Rejeter les cookies non essentiels",
+      "Customize Cookie Preferences": "Personnaliser les préférences de cookies",
+      "Learn more about how we use cookies in our": "En savoir plus sur notre utilisation des cookies dans notre",
+      "Cookie Policy": "Politique de cookies",
+      "GDPR Compliance": "Conformité RGPD",
+      "Your data, your control": "Vos données, votre contrôle"
     },
   };
 
@@ -74,13 +179,16 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     return translations[language][key] || key;
   };
 
+  // Get the current language object for the Navbar
+  const currentLanguage = languages.find(lang => lang.code === language) || languages[0];
+
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, translate }}>
+    <LanguageContext.Provider value={{ language, setLanguage, translate, currentLanguage }}>
       {children}
     </LanguageContext.Provider>
   );
 };
 
 export const useLanguage = () => {
-  return useContext(LanguageContext) as LanguageContextType;
+  return useContext(LanguageContext);
 };

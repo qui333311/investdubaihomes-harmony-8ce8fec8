@@ -7,6 +7,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { MessageCircle, Phone, Mail, MapPin } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Link } from "react-router-dom";
+import DataProtectionInfo from "@/components/compliance/DataProtectionInfo";
 
 const ContactForm: React.FC = () => {
   const { toast } = useToast();
@@ -19,6 +22,7 @@ const ContactForm: React.FC = () => {
     message: "",
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [consentGiven, setConsentGiven] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -29,6 +33,16 @@ const ContactForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!consentGiven) {
+      toast({
+        title: translate("Consent Required"),
+        description: translate("Please agree to our terms and privacy policy before submitting."),
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setIsLoading(true);
     
     try {
@@ -47,7 +61,9 @@ const ContactForm: React.FC = () => {
       //     name: formData.name,
       //     email: formData.email,
       //     phone: formData.phone,
-      //     message: formData.message
+      //     message: formData.message,
+      //     consentTimestamp: new Date().toISOString(),
+      //     consentType: "explicit"
       //   })
       // });
       
@@ -64,6 +80,7 @@ const ContactForm: React.FC = () => {
         subject: "",
         message: "",
       });
+      setConsentGiven(false);
     } catch (error) {
       console.error("Error sending message:", error);
       toast({
@@ -123,6 +140,11 @@ const ContactForm: React.FC = () => {
               <Phone className="h-5 w-5" />
             </Button>
           </div>
+        </div>
+        
+        {/* Data Protection Info */}
+        <div className="mt-6">
+          <DataProtectionInfo />
         </div>
       </div>
       
@@ -187,6 +209,34 @@ const ContactForm: React.FC = () => {
               rows={4}
               required
             />
+          </div>
+          
+          {/* GDPR Consent Checkbox */}
+          <div className="flex items-start space-x-2 mt-4">
+            <Checkbox
+              id="gdpr-consent"
+              checked={consentGiven}
+              onCheckedChange={(checked) => setConsentGiven(checked === true)}
+              className="data-[state=checked]:bg-luxury-gold mt-1"
+            />
+            <div className="grid gap-1.5 leading-none">
+              <label
+                htmlFor="gdpr-consent"
+                className="text-sm text-gray-600 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                {translate("I agree to receive communications and understand I can unsubscribe at any time.")}
+              </label>
+              <p className="text-xs text-gray-500">
+                {translate("By submitting, you agree to our")}{" "}
+                <Link to="/terms" className="text-luxury-gold underline hover:text-luxury-gold/80">
+                  {translate("Terms of Service")}
+                </Link>{" "}
+                {translate("and")}{" "}
+                <Link to="/privacy" className="text-luxury-gold underline hover:text-luxury-gold/80">
+                  {translate("Privacy Policy")}
+                </Link>
+              </p>
+            </div>
           </div>
           
           <Button 
