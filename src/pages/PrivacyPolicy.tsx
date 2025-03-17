@@ -31,7 +31,7 @@ const PrivacyPolicy = () => {
                 <div>
                   <h3 className="text-xl font-semibold mb-3">{translate("Introduction")}</h3>
                   <p className="text-gray-700 mb-3">
-                    {translate("ME MY DUBAI ("we," "our," or "us") respects your privacy and is committed to protecting your personal data. This privacy policy explains how we collect, use, and safeguard your information when you visit our website or use our services.")}
+                    {translate('ME MY DUBAI ("we," "our," or "us") respects your privacy and is committed to protecting your personal data. This privacy policy explains how we collect, use, and safeguard your information when you visit our website or use our services.')}
                   </p>
                   <p className="text-gray-700">
                     {translate("Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access our website or use our services.")}
