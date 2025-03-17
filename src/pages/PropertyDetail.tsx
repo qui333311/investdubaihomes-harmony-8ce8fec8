@@ -241,7 +241,7 @@ const PropertyDetail = () => {
                   size="sm"
                   asChild
                 >
-                  <Link to={`/properties/${Number(id) > 1 ? `prop${Number(id?.replace('prop', '')) - 1}` : 'prop6'}`}>
+                  <Link to={`/properties/${Number(id?.replace('prop', '')) > 1 ? `prop${Number(id?.replace('prop', '')) - 1}` : 'prop6'}`}>
                     <ArrowLeft className="mr-2 h-4 w-4" />
                     {translate("Previous")}
                   </Link>
