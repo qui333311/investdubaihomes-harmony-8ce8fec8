@@ -1,4 +1,3 @@
-
 import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -334,7 +333,7 @@ const CompanySetup = () => {
           </div>
         </section>
         
-        {/* CTA Section */}
+        {/* CTA Section - Modified to remove book consultation button */}
         <section className="relative py-20">
           <div
             className="absolute inset-0 z-0"
@@ -354,9 +353,6 @@ const CompanySetup = () => {
                 Our experts will guide you through setting up your company in the most suitable freezone for your property investment needs.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" className="bg-luxury-gold hover:bg-luxury-gold/90">
-                  <Link to="/contact">Book a Free Consultation</Link>
-                </Button>
                 <Button asChild size="lg" variant="outline">
                   <Link to="/roi">Learn About Investment ROI</Link>
                 </Button>
