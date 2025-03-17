@@ -232,7 +232,7 @@ const ContactForm: React.FC = () => {
                   {translate("Terms of Service")}
                 </Link>{" "}
                 {translate("and")}{" "}
-                <Link to="/privacy" className="text-luxury-gold underline hover:text-luxury-gold/80">
+                <Link to="/privacy-policy" className="text-luxury-gold underline hover:text-luxury-gold/80">
                   {translate("Privacy Policy")}
                 </Link>
               </p>

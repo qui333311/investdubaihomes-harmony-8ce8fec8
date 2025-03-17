@@ -159,7 +159,7 @@ const EmailSubscription = () => {
                         <Link to="/terms" className="underline ml-1 hover:text-luxury-gold">
                           {translate("Terms of Service")}
                         </Link> {translate("and")} 
-                        <Link to="/privacy" className="underline ml-1 hover:text-luxury-gold">
+                        <Link to="/privacy-policy" className="underline ml-1 hover:text-luxury-gold">
                           {translate("Privacy Policy")}
                         </Link>
                       </span>
