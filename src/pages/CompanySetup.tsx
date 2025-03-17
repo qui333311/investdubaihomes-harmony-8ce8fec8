@@ -109,6 +109,7 @@ const CompanySetup = () => {
           title="UAE Freezone Company Setup"
           subtitle="Establish your business in the UAE's premier freezones with 100% foreign ownership, zero corporate tax, and full repatriation of profits."
           backgroundImage="https://images.unsplash.com/photo-1496568816309-51d7c20e3b21?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+          showCta={false}
         />
         
         {/* Overview Section */}
