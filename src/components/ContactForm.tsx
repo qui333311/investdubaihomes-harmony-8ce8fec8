@@ -10,77 +10,97 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from "react-router-dom";
 import DataProtectionInfo from "@/components/compliance/DataProtectionInfo";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import emailjs from '@emailjs/browser';
+
+// Define the form schema with Zod
+const formSchema = z.object({
+  name: z.string().min(2, {
+    message: "Name must be at least 2 characters.",
+  }),
+  email: z.string().email({
+    message: "Please enter a valid email address.",
+  }),
+  phone: z.string().optional(),
+  subject: z.string().min(2, {
+    message: "Subject must be at least 2 characters.",
+  }),
+  message: z.string().min(10, {
+    message: "Message must be at least 10 characters.",
+  }),
+  consent: z.boolean().refine(val => val === true, {
+    message: "You must agree to the terms and privacy policy.",
+  }),
+});
+
+// EmailJS configuration
+const EMAILJS_SERVICE_ID = "service_contact_form"; // Replace with your actual Service ID
+const EMAILJS_TEMPLATE_ID = "template_contact_form"; // Replace with your actual Template ID
+const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY"; // Replace with your actual Public Key
+const TARGET_EMAIL = "contact@memydubai.com"; // The email address where inquiries will be sent
 
 const ContactForm: React.FC = () => {
   const { toast } = useToast();
   const { translate } = useLanguage();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    subject: "",
-    message: "",
-  });
   const [isLoading, setIsLoading] = useState(false);
-  const [consentGiven, setConsentGiven] = useState(false);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  // Initialize React Hook Form
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: "",
+      consent: false,
+    },
+  });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!consentGiven) {
-      toast({
-        title: translate("Consent Required"),
-        description: translate("Please agree to our terms and privacy policy before submitting."),
-        variant: "destructive",
-      });
-      return;
-    }
-    
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
     
     try {
-      // Send email - this would connect to your email service
-      // For now, we'll simulate this with a timeout
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Prepare template parameters for EmailJS
+      const templateParams = {
+        from_name: values.name,
+        from_email: values.email,
+        phone: values.phone || "Not provided",
+        subject: values.subject,
+        message: values.message,
+        to_email: TARGET_EMAIL,
+        consent_timestamp: new Date().toISOString(),
+      };
       
-      // In a real implementation, you would send an API request to your backend
-      // Example with fetch:
-      // const response = await fetch('/api/send-email', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({
-      //     to: "contact@memydubai.com",
-      //     subject: `New Contact Form Submission: ${formData.subject}`,
-      //     name: formData.name,
-      //     email: formData.email,
-      //     phone: formData.phone,
-      //     message: formData.message,
-      //     consentTimestamp: new Date().toISOString(),
-      //     consentType: "explicit"
-      //   })
-      // });
+      // Send email using EmailJS
+      const response = await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams,
+        EMAILJS_PUBLIC_KEY
+      );
       
-      toast({
-        title: translate("Message Sent!"),
-        description: translate("Thank you for your inquiry. We'll get back to you soon."),
-      });
-      
-      // Reset form
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
-      });
-      setConsentGiven(false);
+      if (response.status === 200) {
+        toast({
+          title: translate("Message Sent!"),
+          description: translate("Thank you for your inquiry. We'll get back to you soon."),
+        });
+        
+        // Reset form
+        form.reset();
+      } else {
+        throw new Error("Failed to send email");
+      }
     } catch (error) {
       console.error("Error sending message:", error);
       toast({
@@ -114,7 +134,7 @@ const ContactForm: React.FC = () => {
             <Mail className="h-5 w-5 mr-3 text-luxury-gold mt-1" />
             <div>
               <h4 className="font-semibold">{translate("Email")}</h4>
-              <p className="text-gray-600">contact@memydubai.com</p>
+              <p className="text-gray-600">{TARGET_EMAIL}</p>
             </div>
           </div>
           
@@ -149,104 +169,136 @@ const ContactForm: React.FC = () => {
       </div>
       
       <div>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <Label htmlFor="name">{translate("Full Name")}</Label>
-            <Input
-              id="name"
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
               name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder={translate("John Doe")}
-              required
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{translate("Full Name")}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={translate("John Doe")}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-          
-          <div>
-            <Label htmlFor="email">{translate("Email")}</Label>
-            <Input
-              id="email"
+            
+            <FormField
+              control={form.control}
               name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder={translate("john@example.com")}
-              required
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{translate("Email")}</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="email"
+                      placeholder={translate("john@example.com")}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-          
-          <div>
-            <Label htmlFor="phone">{translate("Phone")}</Label>
-            <Input
-              id="phone"
+            
+            <FormField
+              control={form.control}
               name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder={translate("+971 58 123 4567")}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{translate("Phone")}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={translate("+971 58 123 4567")}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-          
-          <div>
-            <Label htmlFor="subject">{translate("Subject")}</Label>
-            <Input
-              id="subject"
+            
+            <FormField
+              control={form.control}
               name="subject"
-              value={formData.subject}
-              onChange={handleChange}
-              placeholder={translate("Investment Inquiry")}
-              required
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{translate("Subject")}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={translate("Investment Inquiry")}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-          
-          <div>
-            <Label htmlFor="message">{translate("Message")}</Label>
-            <Textarea
-              id="message"
+            
+            <FormField
+              control={form.control}
               name="message"
-              value={formData.message}
-              onChange={handleChange}
-              placeholder={translate("I'm interested in investing in Dubai properties...")}
-              rows={4}
-              required
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{translate("Message")}</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder={translate("I'm interested in investing in Dubai properties...")}
+                      rows={4}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-          
-          {/* GDPR Consent Checkbox */}
-          <div className="flex items-start space-x-2 mt-4">
-            <Checkbox
-              id="gdpr-consent"
-              checked={consentGiven}
-              onCheckedChange={(checked) => setConsentGiven(checked === true)}
-              className="data-[state=checked]:bg-luxury-gold mt-1"
+            
+            <FormField
+              control={form.control}
+              name="consent"
+              render={({ field }) => (
+                <FormItem className="flex items-start space-x-2 mt-4">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                      className="data-[state=checked]:bg-luxury-gold mt-1"
+                    />
+                  </FormControl>
+                  <div className="grid gap-1.5 leading-none">
+                    <FormLabel className="text-sm text-gray-600 font-medium leading-none">
+                      {translate("I agree to receive communications and understand I can unsubscribe at any time.")}
+                    </FormLabel>
+                    <p className="text-xs text-gray-500">
+                      {translate("By submitting, you agree to our")}{" "}
+                      <Link to="/terms" className="text-luxury-gold underline hover:text-luxury-gold/80">
+                        {translate("Terms of Service")}
+                      </Link>{" "}
+                      {translate("and")}{" "}
+                      <Link to="/privacy-policy" className="text-luxury-gold underline hover:text-luxury-gold/80">
+                        {translate("Privacy Policy")}
+                      </Link>
+                    </p>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-            <div className="grid gap-1.5 leading-none">
-              <label
-                htmlFor="gdpr-consent"
-                className="text-sm text-gray-600 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                {translate("I agree to receive communications and understand I can unsubscribe at any time.")}
-              </label>
-              <p className="text-xs text-gray-500">
-                {translate("By submitting, you agree to our")}{" "}
-                <Link to="/terms" className="text-luxury-gold underline hover:text-luxury-gold/80">
-                  {translate("Terms of Service")}
-                </Link>{" "}
-                {translate("and")}{" "}
-                <Link to="/privacy-policy" className="text-luxury-gold underline hover:text-luxury-gold/80">
-                  {translate("Privacy Policy")}
-                </Link>
-              </p>
-            </div>
-          </div>
-          
-          <Button 
-            type="submit" 
-            className="w-full bg-luxury-gold hover:bg-luxury-gold/90"
-            disabled={isLoading}
-          >
-            {isLoading ? translate("Sending...") : translate("Send Message")}
-          </Button>
-        </form>
+            
+            <Button 
+              type="submit" 
+              className="w-full bg-luxury-gold hover:bg-luxury-gold/90"
+              disabled={isLoading}
+            >
+              {isLoading ? translate("Sending...") : translate("Send Message")}
+            </Button>
+          </form>
+        </Form>
       </div>
     </div>
   );
