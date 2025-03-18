@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -21,7 +20,8 @@ const developmentData: Record<string, any> = {
         description: "Luxury high-rise residential towers with marina views",
         units: "350+ apartments",
         priceRange: "AED 1.2M - 7M",
-        completionDate: "2010"
+        completionDate: "2010",
+        image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
       },
       {
         name: "Marina Promenade",
@@ -31,7 +31,8 @@ const developmentData: Record<string, any> = {
         description: "Waterfront apartments with retail spaces on the ground floor",
         units: "200+ apartments",
         priceRange: "AED 1.5M - 5M",
-        completionDate: "2008"
+        completionDate: "2008",
+        image: "https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
       },
       {
         name: "Marina Heights",
@@ -41,7 +42,8 @@ const developmentData: Record<string, any> = {
         description: "Premium residences with full marina views",
         units: "280+ apartments",
         priceRange: "AED 1.3M - 6M",
-        completionDate: "2009"
+        completionDate: "2009",
+        image: "https://images.unsplash.com/photo-1496307653780-42ee777d4833?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
       },
       {
         name: "Marina Quays",
@@ -51,7 +53,8 @@ const developmentData: Record<string, any> = {
         description: "Waterfront apartments with direct marina access",
         units: "150+ apartments",
         priceRange: "AED 1.7M - 8M",
-        completionDate: "2011"
+        completionDate: "2011",
+        image: "https://images.unsplash.com/photo-1459767129954-1b1c1f9b9ace?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
       }
     ]
   },
@@ -68,7 +71,8 @@ const developmentData: Record<string, any> = {
         description: "Beachfront signature villas with private beach access",
         units: "100+ villas",
         priceRange: "AED 15M - 70M",
-        completionDate: "2007"
+        completionDate: "2007",
+        image: "https://images.unsplash.com/photo-1460574283810-2aab119d8511?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
       },
       {
         name: "Marina Residences",
@@ -78,7 +82,8 @@ const developmentData: Record<string, any> = {
         description: "Luxury apartments overlooking the marina",
         units: "200+ apartments",
         priceRange: "AED 3M - 12M",
-        completionDate: "2009"
+        completionDate: "2009",
+        image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
       },
       {
         name: "Atlantis Residences",
@@ -88,7 +93,8 @@ const developmentData: Record<string, any> = {
         description: "Premium branded residences attached to the Atlantis Hotel",
         units: "180+ apartments",
         priceRange: "AED 5M - 25M",
-        completionDate: "2016"
+        completionDate: "2016",
+        image: "https://images.unsplash.com/photo-1496307653780-42ee777d4833?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
       },
       {
         name: "FIVE Palm Jumeirah",
@@ -98,7 +104,8 @@ const developmentData: Record<string, any> = {
         description: "Luxury hotel with residential units",
         units: "250+ units",
         priceRange: "AED 2.5M - 15M",
-        completionDate: "2017"
+        completionDate: "2017",
+        image: "https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
       }
     ]
   },
@@ -115,7 +122,8 @@ const developmentData: Record<string, any> = {
         description: "Iconic skyscraper with residential, commercial, and hotel units",
         units: "900+ apartments",
         priceRange: "AED 2M - 30M",
-        completionDate: "2010"
+        completionDate: "2010",
+        image: "https://images.unsplash.com/photo-1459767129954-1b1c1f9b9ace?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
       },
       {
         name: "The Address Downtown",
@@ -125,7 +133,8 @@ const developmentData: Record<string, any> = {
         description: "Luxury hotel and serviced residences in prime Downtown location",
         units: "200+ units",
         priceRange: "AED 2.5M - 15M",
-        completionDate: "2008"
+        completionDate: "2008",
+        image: "https://images.unsplash.com/photo-1460574283810-2aab119d8511?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
       },
       {
         name: "Boulevard Point",
@@ -135,7 +144,8 @@ const developmentData: Record<string, any> = {
         description: "Modern residential tower overlooking Dubai Fountain",
         units: "300+ apartments",
         priceRange: "AED 1.8M - 10M",
-        completionDate: "2015"
+        completionDate: "2015",
+        image: "https://images.unsplash.com/photo-1496307653780-42ee777d4833?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
       },
       {
         name: "Opera Grand",
@@ -145,11 +155,11 @@ const developmentData: Record<string, any> = {
         description: "Luxury residences next to Dubai Opera",
         units: "250+ apartments",
         priceRange: "AED 2.2M - 12M",
-        completionDate: "2019"
+        completionDate: "2019",
+        image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
       }
     ]
   },
-  // Add more areas and their developments here
   "jumeirah-beach-residence": {
     title: "Jumeirah Beach Residence (JBR)",
     description: "JBR is a beachfront community with luxury apartments, retail outlets, and dining options.",
@@ -163,7 +173,8 @@ const developmentData: Record<string, any> = {
         description: "Beachfront residential complex with direct beach access",
         units: "400+ apartments",
         priceRange: "AED 1.5M - 6M",
-        completionDate: "2007"
+        completionDate: "2007",
+        image: "https://images.unsplash.com/photo-1459767129954-1b1c1f9b9ace?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
       },
       {
         name: "Murjan Towers",
@@ -173,7 +184,8 @@ const developmentData: Record<string, any> = {
         description: "Beachfront residential complex with retail options",
         units: "350+ apartments",
         priceRange: "AED 1.4M - 5.5M",
-        completionDate: "2007"
+        completionDate: "2007",
+        image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
       }
     ]
   },
@@ -190,7 +202,8 @@ const developmentData: Record<string, any> = {
         description: "Luxury waterfront apartments with panoramic views",
         units: "200+ apartments",
         priceRange: "AED 800K - 3M",
-        completionDate: "2016"
+        completionDate: "2016",
+        image: "https://images.unsplash.com/photo-1496307653780-42ee777d4833?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
       },
       {
         name: "Gateway Residences",
@@ -200,7 +213,8 @@ const developmentData: Record<string, any> = {
         description: "Modern apartments with water views",
         units: "150+ apartments",
         priceRange: "AED 750K - 2.5M",
-        completionDate: "2018"
+        completionDate: "2018",
+        image: "https://images.unsplash.com/photo-1460574283810-2aab119d8511?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
       }
     ]
   }
@@ -267,24 +281,37 @@ const AreaDevelopments = () => {
               const DevIcon = dev.icon || Building;
               
               return (
-                <Card key={index} className="h-full">
-                  <CardHeader className="bg-gray-50 rounded-t-lg">
-                    <div className="flex items-center">
-                      <DevIcon className="h-5 w-5 mr-2 text-luxury-navy" />
-                      <CardTitle className="text-xl">{dev.name}</CardTitle>
+                <Card key={index} className="h-full flex flex-col">
+                  <div className="h-48 relative overflow-hidden rounded-t-lg">
+                    <img 
+                      src={dev.image || "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=1200&q=80"} 
+                      alt={dev.name} 
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                      <div className="p-4 w-full">
+                        <div className="flex items-center text-white">
+                          <DevIcon className="h-5 w-5 mr-2 text-luxury-gold" />
+                          <h3 className="text-xl font-semibold truncate">{dev.name}</h3>
+                        </div>
+                      </div>
                     </div>
+                  </div>
+                  
+                  <CardHeader className="bg-gray-50 border-b">
+                    <CardTitle className="text-lg flex justify-between items-center">
+                      <span className="truncate">{dev.type}</span>
+                      <span className="text-sm font-medium text-green-600">{dev.completionDate}</span>
+                    </CardTitle>
                   </CardHeader>
-                  <CardContent className="pt-6">
+                  
+                  <CardContent className="pt-6 flex-grow">
                     <div className="space-y-4">
                       <p className="text-gray-600">
                         {translate(dev.description)}
                       </p>
                       
                       <div className="space-y-2 text-sm">
-                        <div className="flex justify-between">
-                          <span className="font-semibold">{translate("Type")}:</span>
-                          <span className="text-gray-600">{dev.type}</span>
-                        </div>
                         <div className="flex justify-between">
                           <span className="font-semibold">{translate("Developer")}:</span>
                           <span className="text-gray-600">{dev.developer}</span>
@@ -296,10 +323,6 @@ const AreaDevelopments = () => {
                         <div className="flex justify-between">
                           <span className="font-semibold">{translate("Price Range")}:</span>
                           <span className="text-gray-600">{dev.priceRange}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="font-semibold">{translate("Completion")}:</span>
-                          <span className="text-gray-600">{dev.completionDate}</span>
                         </div>
                       </div>
                     </div>
@@ -315,3 +338,4 @@ const AreaDevelopments = () => {
 };
 
 export default AreaDevelopments;
+
