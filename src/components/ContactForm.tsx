@@ -1,8 +1,6 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { MessageCircle, Phone, Mail, MapPin } from "lucide-react";
@@ -22,6 +20,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import emailjs from '@emailjs/browser';
+import { TARGET_EMAIL, EMAILJS_CONFIG } from "@/config/email.ts";
 
 // Define the form schema with Zod
 const formSchema = z.object({
@@ -42,12 +41,6 @@ const formSchema = z.object({
     message: "You must agree to the terms and privacy policy.",
   }),
 });
-
-// EmailJS configuration
-const EMAILJS_SERVICE_ID = "service_contact_form"; // Replace with your actual Service ID
-const EMAILJS_TEMPLATE_ID = "template_contact_form"; // Replace with your actual Template ID
-const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY"; // Replace with your actual Public Key
-const TARGET_EMAIL = "contact@memydubai.com"; // The email address where inquiries will be sent
 
 const ContactForm: React.FC = () => {
   const { toast } = useToast();
@@ -84,10 +77,10 @@ const ContactForm: React.FC = () => {
       
       // Send email using EmailJS
       const response = await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.TEMPLATE_ID,
         templateParams,
-        EMAILJS_PUBLIC_KEY
+        EMAILJS_CONFIG.PUBLIC_KEY
       );
       
       if (response.status === 200) {

@@ -2,7 +2,7 @@
 // Email configuration file
 
 // The target email where all contact form submissions will be sent
-export const TARGET_EMAIL = "contact@memydubai.com";
+export const TARGET_EMAIL = "schreyer1986@gmail.com";
 
 // EmailJS configuration
 export const EMAILJS_CONFIG = {
