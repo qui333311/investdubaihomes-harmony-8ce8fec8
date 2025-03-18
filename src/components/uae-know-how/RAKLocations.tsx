@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Ship, MapPin, Building, Home, Mountain, Hotel, Trophy, TrendingUp, DollarSign, Users, Briefcase } from "lucide-react";
 import LocationCard from "./LocationCard";
@@ -9,7 +10,7 @@ const RAKLocations = () => {
   const { translate } = useLanguage();
 
   const handleViewDevelopments = (area: string) => {
-    navigate(`/uae-know-how/${area.toLowerCase().replace(/\s+/g, '-')}`);
+    navigate(`/area/${area.toLowerCase().replace(/\s+/g, '-')}`);
   };
 
   return (

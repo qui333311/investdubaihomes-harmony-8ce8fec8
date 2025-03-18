@@ -208,10 +208,10 @@ const developmentData: Record<string, any> = {
 
 const AreaDevelopments = () => {
   const { translate } = useLanguage();
-  const { areaId } = useParams<{ areaId: string }>();
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   
-  const areaData = developmentData[areaId || ""] || null;
+  const areaData = developmentData[id || ""] || null;
   
   if (!areaData) {
     return (

@@ -8,7 +8,7 @@ const DubaiLocations = () => {
   const navigate = useNavigate();
 
   const handleViewDevelopments = (area: string) => {
-    navigate(`/uae-know-how/${area.toLowerCase().replace(/\s+/g, '-')}`);
+    navigate(`/area/${area.toLowerCase().replace(/\s+/g, '-')}`);
   };
 
   return (
