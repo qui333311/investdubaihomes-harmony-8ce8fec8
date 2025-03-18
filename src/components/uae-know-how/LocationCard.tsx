@@ -13,6 +13,7 @@ interface LocationCardProps {
   averagePrice: string;
   rentalYield: string;
   established: string;
+  hideViewButton?: boolean;
   onViewDevelopments: () => void;
 }
 
@@ -25,6 +26,7 @@ const LocationCard = ({
   averagePrice,
   rentalYield,
   established,
+  hideViewButton = false,
   onViewDevelopments,
 }: LocationCardProps) => {
   const { translate } = useLanguage();
@@ -71,12 +73,14 @@ const LocationCard = ({
           </div>
         </div>
 
-        <Button
-          onClick={onViewDevelopments}
-          className="w-full bg-luxury-navy hover:bg-luxury-navy/90"
-        >
-          {translate("View Developments")}
-        </Button>
+        {!hideViewButton && (
+          <Button
+            onClick={onViewDevelopments}
+            className="w-full bg-luxury-navy hover:bg-luxury-navy/90"
+          >
+            {translate("View Developments")}
+          </Button>
+        )}
       </div>
     </div>
   );

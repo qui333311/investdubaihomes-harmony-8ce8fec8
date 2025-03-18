@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Ship, MapPin, Building, Home, Mountain, Hotel, Trophy, TrendingUp, DollarSign, Users, Briefcase } from "lucide-react";
 import LocationCard from "./LocationCard";
@@ -20,6 +19,24 @@ const RAKLocations = () => {
           <Hotel className="mr-2 h-6 w-6 text-luxury-navy" />
           {translate("Wynn Resort & Casino Development")}
         </h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <img 
+            src="https://preview.thenewsmarket.com/Previews/WYNN/StillAssets/1920x1080/642192.jpg" 
+            alt="Wynn Resort Aerial View" 
+            className="w-full h-52 object-cover rounded-lg"
+          />
+          <img 
+            src="https://www.mepmiddleeast.com/cloud/2024/11/28/gVYWU2nBdc24MegZaGih-1024x576.webp" 
+            alt="Wynn Resort Construction" 
+            className="w-full h-52 object-cover rounded-lg"
+          />
+          <img 
+            src="https://www.wam.ae/uploads/imported/2022-11/2022-11-23T000-00-00.000Z-6-1669168683_-_Dufce-2215.jpg" 
+            alt="Al Marjan Island" 
+            className="w-full h-52 object-cover rounded-lg"
+          />
+        </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
           <div className="bg-white p-4 rounded-lg shadow-sm">
@@ -88,7 +105,8 @@ const RAKLocations = () => {
           averagePrice="AED 800 - 1,400/sqft"
           rentalYield="8-10%"
           established="2007"
-          onViewDevelopments={() => handleViewDevelopments("Al Marjan Island")}
+          hideViewButton={true}
+          onViewDevelopments={() => {}}
         />
         
         <LocationCard 
@@ -100,7 +118,8 @@ const RAKLocations = () => {
           averagePrice="AED 750 - 1,200/sqft"
           rentalYield="7-9%"
           established="2003"
-          onViewDevelopments={() => handleViewDevelopments("Al Hamra Village")}
+          hideViewButton={true}
+          onViewDevelopments={() => {}}
         />
       </div>
       
@@ -114,7 +133,8 @@ const RAKLocations = () => {
           averagePrice="AED 800 - 1,100/sqft"
           rentalYield="7-8%"
           established="2008"
-          onViewDevelopments={() => handleViewDevelopments("Mina Al Arab")}
+          hideViewButton={true}
+          onViewDevelopments={() => {}}
         />
         
         <LocationCard 
@@ -126,7 +146,8 @@ const RAKLocations = () => {
           averagePrice="AED 650 - 950/sqft"
           rentalYield="8-10%"
           established="2012"
-          onViewDevelopments={() => handleViewDevelopments("Gateway Residences")}
+          hideViewButton={true}
+          onViewDevelopments={() => {}}
         />
       </div>
       
@@ -140,7 +161,8 @@ const RAKLocations = () => {
           averagePrice="AED 900 - 1,500/sqft"
           rentalYield="6-8%"
           established="2018"
-          onViewDevelopments={() => handleViewDevelopments("Jebel Jais")}
+          hideViewButton={true}
+          onViewDevelopments={() => {}}
         />
         
         <LocationCard 
@@ -152,7 +174,8 @@ const RAKLocations = () => {
           averagePrice="AED 1,200 - 2,000/sqft"
           rentalYield="9-12% (projected)"
           established="2023-2026"
-          onViewDevelopments={() => handleViewDevelopments("Wynn Resort Area")}
+          hideViewButton={true}
+          onViewDevelopments={() => {}}
         />
       </div>
     </div>
