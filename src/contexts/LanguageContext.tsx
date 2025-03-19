@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
 // Define the language options with proper typing
@@ -99,7 +98,22 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       "Learn more about how we use cookies in our": "Learn more about how we use cookies in our",
       "Cookie Policy": "Cookie Policy",
       "GDPR Compliance": "GDPR Compliance",
-      "Your data, your control": "Your data, your control"
+      "Your data, your control": "Your data, your control",
+      // Impressum translations
+      "Impressum": "Impressum",
+      "Legal Notice": "Legal Notice",
+      "Company Information": "Company Information",
+      "Represented by": "Represented by",
+      "Managing Director": "Managing Director",
+      "Registration": "Registration",
+      "Commercial Registry Number": "Commercial Registry Number",
+      "Tax Identification Number": "Tax Identification Number",
+      "Regulatory Authority": "Regulatory Authority",
+      "Real Estate Regulatory Authority (RERA) License Number": "Real Estate Regulatory Authority (RERA) License Number",
+      "Dubai Land Department Registration": "Dubai Land Department Registration",
+      "Disclaimer": "Disclaimer",
+      "The contents of our website have been created with the greatest possible care. However, we cannot guarantee the accuracy, completeness, and timeliness of the content. As a service provider, we are responsible for our own content on these pages according to general laws. However, we are not obliged to monitor transmitted or stored third-party information or to investigate circumstances that indicate illegal activity.": "The contents of our website have been created with the greatest possible care. However, we cannot guarantee the accuracy, completeness, and timeliness of the content. As a service provider, we are responsible for our own content on these pages according to general laws. However, we are not obliged to monitor transmitted or stored third-party information or to investigate circumstances that indicate illegal activity.",
+      "Obligations to remove or block the use of information according to general laws remain unaffected. However, liability in this regard is only possible from the time of knowledge of a specific legal violation. If we become aware of such infringements, we will remove this content immediately.": "Obligations to remove or block the use of information according to general laws remain unaffected. However, liability in this regard is only possible from the time of knowledge of a specific legal violation. If we become aware of such infringements, we will remove this content immediately."
     },
     fr: {
       "Title": "Titre",
@@ -171,7 +185,22 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       "Learn more about how we use cookies in our": "En savoir plus sur notre utilisation des cookies dans notre",
       "Cookie Policy": "Politique de cookies",
       "GDPR Compliance": "Conformité RGPD",
-      "Your data, your control": "Vos données, votre contrôle"
+      "Your data, your control": "Vos données, votre contrôle",
+      // Impressum translations
+      "Impressum": "Mentions Légales",
+      "Legal Notice": "Notice Légale",
+      "Company Information": "Informations sur l'Entreprise",
+      "Represented by": "Représenté par",
+      "Managing Director": "Directeur Général",
+      "Registration": "Enregistrement",
+      "Commercial Registry Number": "Numéro du Registre du Commerce",
+      "Tax Identification Number": "Numéro d'Identification Fiscale",
+      "Regulatory Authority": "Autorité Réglementaire",
+      "Real Estate Regulatory Authority (RERA) License Number": "Numéro de Licence de l'Autorité de Réglementation Immobilière (RERA)",
+      "Dubai Land Department Registration": "Enregistrement au Département des Terres de Dubaï",
+      "Disclaimer": "Avertissement",
+      "The contents of our website have been created with the greatest possible care. However, we cannot guarantee the accuracy, completeness, and timeliness of the content. As a service provider, we are responsible for our own content on these pages according to general laws. However, we are not obliged to monitor transmitted or stored third-party information or to investigate circumstances that indicate illegal activity.": "Le contenu de notre site Web a été créé avec le plus grand soin possible. Cependant, nous ne pouvons garantir l'exactitude, l'exhaustivité et l'actualité du contenu. En tant que prestataire de services, nous sommes responsables de notre propre contenu sur ces pages conformément aux lois générales. Cependant, nous ne sommes pas obligés de surveiller les informations transmises ou stockées par des tiers ou d'enquêter sur des circonstances qui indiquent une activité illégale.",
+      "Obligations to remove or block the use of information according to general laws remain unaffected. However, liability in this regard is only possible from the time of knowledge of a specific legal violation. If we become aware of such infringements, we will remove this content immediately.": "Les obligations de supprimer ou de bloquer l'utilisation d'informations conformément aux lois générales restent inchangées. Cependant, la responsabilité à cet égard n'est possible qu'à partir du moment où l'on a connaissance d'une violation légale spécifique. Si nous avons connaissance de telles infractions, nous supprimerons immédiatement ce contenu."
     },
   };
 

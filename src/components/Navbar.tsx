@@ -40,6 +40,11 @@ const Navbar = () => {
     return false;
   };
 
+  // Function to handle language change
+  const handleLanguageChange = (lang: typeof languages[0]) => {
+    setLanguage(lang.code);
+  };
+
   return (
     <nav className="fixed w-full bg-white/90 backdrop-blur-sm z-50 shadow-sm">
       <div className="luxury-container">
@@ -79,7 +84,7 @@ const Navbar = () => {
                   {languages.map((lang) => (
                     <DropdownMenuItem 
                       key={lang.code}
-                      onClick={() => setLanguage(lang)}
+                      onClick={() => handleLanguageChange(lang)}
                       className={currentLanguage.code === lang.code ? "bg-muted" : ""}
                     >
                       {lang.name}
@@ -130,7 +135,7 @@ const Navbar = () => {
                       key={lang.code} 
                       variant={currentLanguage.code === lang.code ? "default" : "outline"} 
                       size="sm"
-                      onClick={() => setLanguage(lang)}
+                      onClick={() => handleLanguageChange(lang)}
                       className={currentLanguage.code === lang.code ? "bg-luxury-gold text-white" : ""}
                     >
                       {lang.name}

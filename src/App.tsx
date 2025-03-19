@@ -22,6 +22,7 @@ import Blog from './pages/Blog';
 import CookieConsent from './components/compliance/CookieConsent';
 import CookiePolicy from './pages/CookiePolicy';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import Impressum from './pages/Impressum';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/cookie-policy" element={<CookiePolicy />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/impressum" element={<Impressum />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Toaster />
