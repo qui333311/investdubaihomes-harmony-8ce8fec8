@@ -71,21 +71,27 @@ const Navbar = () => {
               </Link>
             ))}
 
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-3">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="flex items-center">
-                    <Globe className="h-4 w-4 mr-1" />
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="flex items-center border border-luxury-gold/30 bg-white hover:bg-luxury-gold/5 text-luxury-navy hover:text-luxury-gold transition-all duration-200"
+                  >
+                    <Globe className="h-4 w-4 mr-1.5 text-luxury-gold" />
                     <span>{currentLanguage.code.toUpperCase()}</span>
-                    <ChevronDown className="h-4 w-4 ml-1" />
+                    <ChevronDown className="h-3.5 w-3.5 ml-1.5 opacity-70" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
+                <DropdownMenuContent align="end" className="min-w-[120px]">
                   {languages.map((lang) => (
                     <DropdownMenuItem 
                       key={lang.code}
                       onClick={() => handleLanguageChange(lang)}
-                      className={currentLanguage.code === lang.code ? "bg-muted" : ""}
+                      className={`${currentLanguage.code === lang.code 
+                        ? "bg-luxury-gold/10 text-luxury-gold font-medium" 
+                        : "text-luxury-charcoal hover:text-luxury-gold"} cursor-pointer px-4 py-2`}
                     >
                       {lang.name}
                     </DropdownMenuItem>
@@ -93,7 +99,10 @@ const Navbar = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <Button className="bg-luxury-gold hover:bg-luxury-gold/90 text-white" asChild>
+              <Button 
+                className="bg-luxury-gold hover:bg-luxury-navy text-white font-medium shadow-sm hover:shadow-md transition-all duration-200 px-5"
+                asChild
+              >
                 <Link to="/contact">{translate("Book Consultation")}</Link>
               </Button>
             </div>
@@ -128,7 +137,7 @@ const Navbar = () => {
               ))}
               
               <div className="py-2 border-t border-gray-100">
-                <p className="text-sm text-luxury-charcoal/70 mb-2">Language</p>
+                <p className="text-sm text-luxury-charcoal/70 mb-2">{translate("Language")}</p>
                 <div className="flex flex-wrap gap-2">
                   {languages.map((lang) => (
                     <Button 
@@ -136,7 +145,9 @@ const Navbar = () => {
                       variant={currentLanguage.code === lang.code ? "default" : "outline"} 
                       size="sm"
                       onClick={() => handleLanguageChange(lang)}
-                      className={currentLanguage.code === lang.code ? "bg-luxury-gold text-white" : ""}
+                      className={currentLanguage.code === lang.code 
+                        ? "bg-luxury-gold text-white border-luxury-gold hover:bg-luxury-gold/90" 
+                        : "border-luxury-gold/30 text-luxury-navy hover:bg-luxury-gold/10 hover:text-luxury-gold"}
                     >
                       {lang.name}
                     </Button>
@@ -145,7 +156,7 @@ const Navbar = () => {
               </div>
               
               <Button 
-                className="bg-luxury-gold hover:bg-luxury-gold/90 text-white w-full mt-2"
+                className="bg-luxury-gold hover:bg-luxury-navy text-white font-medium shadow-sm hover:shadow-md transition-all duration-200 w-full"
                 onClick={() => setIsMenuOpen(false)}
                 asChild
               >
