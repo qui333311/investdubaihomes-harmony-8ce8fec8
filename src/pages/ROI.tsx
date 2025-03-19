@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -6,6 +7,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import RoiCalculator from "@/components/RoiCalculator";
 import PropertyYearlyCosts from "@/components/roi/PropertyYearlyCosts";
 import ReadyVsOffPlanComparison from "@/components/roi/ReadyVsOffPlanComparison";
+import DubaiMap from "@/components/roi/DubaiMap";
 
 const ROI = () => {
   const { translate } = useLanguage();
@@ -22,6 +24,20 @@ const ROI = () => {
           videoUrl="https://player.vimeo.com/external/370467553.sd.mp4?s=41e133c5d8c62dcbea38c34da6255e8d202ba193&profile_id=139&oauth2_token_id=57447761"
           showCta={false}
         />
+        
+        <section className="section-padding bg-gray-50">
+          <div className="luxury-container">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold">{translate("Key Investment Locations")}</h2>
+              <p className="text-gray-600 mt-3 max-w-2xl mx-auto">
+                {translate("Explore the most promising areas for real estate investment in Dubai")}
+              </p>
+              <div className="gold-separator mx-auto mt-4" />
+            </div>
+            
+            <DubaiMap />
+          </div>
+        </section>
         
         <ReadyVsOffPlanComparison />
         

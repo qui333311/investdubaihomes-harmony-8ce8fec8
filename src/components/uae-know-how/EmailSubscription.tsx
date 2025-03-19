@@ -107,7 +107,7 @@ const EmailSubscription = () => {
                         id="consent" 
                         checked={consentGiven}
                         onCheckedChange={(checked) => setConsentGiven(checked === true)}
-                        className="data-[state=checked]:bg-luxury-gold"
+                        className="data-[state=checked]:bg-luxury-gold data-[state=checked]:border-luxury-gold"
                       />
                       <div className="grid gap-1.5 leading-none">
                         <label

@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -260,7 +261,7 @@ const ContactForm: React.FC = () => {
                     <Checkbox
                       checked={field.value}
                       onCheckedChange={field.onChange}
-                      className="data-[state=checked]:bg-luxury-gold mt-1"
+                      className="data-[state=checked]:bg-luxury-gold data-[state=checked]:border-luxury-gold mt-1"
                     />
                   </FormControl>
                   <div className="grid gap-1.5 leading-none">
