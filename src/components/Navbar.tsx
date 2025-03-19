@@ -8,17 +8,21 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuGroup,
 } from "@/components/ui/dropdown-menu";
 import { useLanguage, languages } from "@/contexts/LanguageContext";
+import { useIsMobile } from "@/hooks/use-mobile";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const { currentLanguage, setLanguage, translate } = useLanguage();
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const isMobile = useIsMobile();
 
   const navLinks = [
     { name: "Home", path: "/" },
@@ -56,20 +60,38 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                className={`transition-colors font-medium ${
-                  isActive(link.path)
-                    ? "text-luxury-gold"
-                    : "text-luxury-charcoal hover:text-luxury-gold"
-                }`}
-              >
-                {translate(link.name)}
-              </Link>
-            ))}
+          <div className="hidden md:flex items-center space-x-4">
+            {/* Main menu dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant="outline" 
+                  className="flex items-center border border-luxury-gold/30 bg-white hover:bg-luxury-gold/5 text-luxury-navy hover:text-luxury-gold transition-all duration-200"
+                >
+                  <span className="font-medium">{translate("Menu")}</span>
+                  <ChevronDown className="h-4 w-4 ml-1.5 opacity-70" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56 p-2">
+                <DropdownMenuGroup>
+                  {navLinks.map((link) => (
+                    <DropdownMenuItem 
+                      key={link.name}
+                      asChild
+                      className={`${
+                        isActive(link.path)
+                          ? "bg-luxury-gold/10 text-luxury-gold font-medium"
+                          : "text-luxury-charcoal hover:text-luxury-gold"
+                      } cursor-pointer px-4 py-2.5 rounded-md my-0.5`}
+                    >
+                      <Link to={link.path}>
+                        {translate(link.name)}
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             <div className="flex items-center space-x-3">
               <DropdownMenu>
@@ -109,62 +131,57 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Navigation Toggle */}
-          <button
-            onClick={toggleMenu}
-            className="md:hidden text-luxury-navy p-2"
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-        {/* Mobile Navigation Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden py-4 bg-white animate-fade-in">
-            <div className="flex flex-col space-y-4 px-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.path}
-                  className={`py-2 transition-colors ${
-                    isActive(link.path)
-                      ? "text-luxury-gold"
-                      : "text-luxury-charcoal hover:text-luxury-gold"
-                  }`}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {translate(link.name)}
-                </Link>
-              ))}
-              
-              <div className="py-2 border-t border-gray-100">
-                <p className="text-sm text-luxury-charcoal/70 mb-2">{translate("Language")}</p>
-                <div className="flex flex-wrap gap-2">
-                  {languages.map((lang) => (
-                    <Button 
-                      key={lang.code} 
-                      variant={currentLanguage.code === lang.code ? "default" : "outline"} 
-                      size="sm"
-                      onClick={() => handleLanguageChange(lang)}
-                      className={currentLanguage.code === lang.code 
-                        ? "bg-luxury-gold text-white border-luxury-gold hover:bg-luxury-gold/90" 
-                        : "border-luxury-gold/30 text-luxury-navy hover:bg-luxury-gold/10 hover:text-luxury-gold"}
-                    >
-                      {lang.name}
-                    </Button>
-                  ))}
-                </div>
-              </div>
-              
-              <Button 
-                className="bg-luxury-gold hover:bg-luxury-navy text-white font-medium shadow-sm hover:shadow-md transition-all duration-200 w-full"
-                onClick={() => setIsMenuOpen(false)}
-                asChild
-              >
-                <Link to="/contact">{translate("Book Consultation")}</Link>
+          <Sheet>
+            <SheetTrigger asChild className="md:hidden">
+              <Button variant="ghost" size="icon" className="text-luxury-navy">
+                <Menu size={24} />
               </Button>
-            </div>
-          </div>
-        )}
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[80vw] sm:w-[350px] pt-12">
+              <div className="flex flex-col space-y-4 px-2">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    to={link.path}
+                    className={`py-2.5 px-2 rounded-md transition-colors ${
+                      isActive(link.path)
+                        ? "bg-luxury-gold/10 text-luxury-gold font-medium"
+                        : "text-luxury-charcoal hover:text-luxury-gold hover:bg-luxury-gold/5"
+                    }`}
+                  >
+                    {translate(link.name)}
+                  </Link>
+                ))}
+                
+                <div className="py-4 border-t border-gray-100 mt-2">
+                  <p className="text-sm text-luxury-charcoal/70 mb-3 px-2">{translate("Language")}</p>
+                  <div className="flex flex-wrap gap-2 px-2">
+                    {languages.map((lang) => (
+                      <Button 
+                        key={lang.code} 
+                        variant={currentLanguage.code === lang.code ? "default" : "outline"} 
+                        size="sm"
+                        onClick={() => handleLanguageChange(lang)}
+                        className={currentLanguage.code === lang.code 
+                          ? "bg-luxury-gold text-white border-luxury-gold hover:bg-luxury-gold/90" 
+                          : "border-luxury-gold/30 text-luxury-navy hover:bg-luxury-gold/10 hover:text-luxury-gold"}
+                      >
+                        {lang.name}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+                
+                <Button 
+                  className="bg-luxury-gold hover:bg-luxury-navy text-white font-medium shadow-sm hover:shadow-md transition-all duration-200 w-full mt-2"
+                  asChild
+                >
+                  <Link to="/contact">{translate("Book Consultation")}</Link>
+                </Button>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </nav>
   );
