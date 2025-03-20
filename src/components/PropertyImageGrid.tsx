@@ -14,12 +14,12 @@ const PropertyImageGrid: React.FC<PropertyImageGridProps> = ({ images, title }) 
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div className="md:col-span-2 h-96">
+      <div className="md:col-span-2 h-96 relative z-10">
         <ImageGallery images={images} alt={title} />
       </div>
       <div className="grid grid-cols-1 gap-4">
         {images.length > 1 && (
-          <div className="h-[11rem]">
+          <div className="h-[11rem] relative z-10">
             <img 
               src={images[1]} 
               alt={`${title} interior`} 
@@ -34,7 +34,7 @@ const PropertyImageGrid: React.FC<PropertyImageGridProps> = ({ images, title }) 
           </div>
         )}
         {images.length > 2 && (
-          <div className="h-[11rem]">
+          <div className="h-[11rem] relative z-10">
             <img 
               src={images[2]} 
               alt={`${title} another view`} 

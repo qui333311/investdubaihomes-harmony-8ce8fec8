@@ -30,7 +30,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, alt }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <div className="cursor-pointer">
+        <div className="cursor-pointer h-full w-full">
           <img 
             src={images[0]} 
             alt={alt} 
@@ -38,7 +38,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, alt }) => {
           />
         </div>
       </DialogTrigger>
-      <DialogContent className="max-w-6xl p-0 bg-transparent border-none">
+      <DialogContent className="max-w-6xl p-0 bg-transparent border-none z-50">
         <div className="relative bg-black/90 rounded-lg overflow-hidden">
           <div className="flex items-center justify-center h-[80vh] p-4">
             <img 
@@ -53,7 +53,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, alt }) => {
               <Button 
                 variant="ghost" 
                 size="icon" 
-                className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full"
+                className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full z-10"
                 onClick={prevImage}
               >
                 <ChevronLeft className="h-6 w-6" />
@@ -61,7 +61,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, alt }) => {
               <Button 
                 variant="ghost" 
                 size="icon" 
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full"
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full z-10"
                 onClick={nextImage}
               >
                 <ChevronRight className="h-6 w-6" />
@@ -69,7 +69,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, alt }) => {
             </>
           )}
           
-          <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
+          <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
             {images.length > 1 && images.map((_, index) => (
               <Button 
                 key={index} 
@@ -87,7 +87,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, alt }) => {
           <Button 
             variant="ghost" 
             size="icon" 
-            className="absolute right-2 top-2 bg-black/50 hover:bg-black/70 text-white rounded-full"
+            className="absolute right-2 top-2 bg-black/50 hover:bg-black/70 text-white rounded-full z-10"
             onClick={() => setOpen(false)}
           >
             <X className="h-4 w-4" />
