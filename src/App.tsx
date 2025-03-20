@@ -23,6 +23,7 @@ import CookieConsent from './components/compliance/CookieConsent';
 import CookiePolicy from './pages/CookiePolicy';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Impressum from './pages/Impressum';
+import Map from './pages/Map';
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
             <Route path="/crypto-buying" element={<CryptoBuying />} />
             <Route path="/area/:id" element={<AreaDetail />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/map" element={<Map />} />
             <Route path="/cookie-policy" element={<CookiePolicy />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/impressum" element={<Impressum />} />

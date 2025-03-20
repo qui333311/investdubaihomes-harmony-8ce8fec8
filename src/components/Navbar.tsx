@@ -1,8 +1,7 @@
-
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown, Globe } from "lucide-react";
+import { Menu, X, ChevronDown, Globe, Map } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,6 +26,7 @@ const Navbar = () => {
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Properties", path: "/properties" },
+    { name: "Map", path: "/map" },
     { name: "About Us", path: "/about-us" },
     { name: "UAE Know How", path: "/uae-know-how" },
     { name: "ROI & Investment", path: "/roi" },
@@ -37,14 +37,12 @@ const Navbar = () => {
     { name: "Contact", path: "/contact" },
   ];
 
-  // Helper function to determine if a link is active
   const isActive = (path: string) => {
     if (path === '/' && location.pathname === '/') return true;
     if (path !== '/' && location.pathname.startsWith(path)) return true;
     return false;
   };
 
-  // Function to handle language change
   const handleLanguageChange = (lang: typeof languages[0]) => {
     setLanguage(lang.code);
   };
@@ -59,9 +57,7 @@ const Navbar = () => {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-4">
-            {/* Main menu dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button 
@@ -130,7 +126,6 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Mobile Navigation Toggle */}
           <Sheet>
             <SheetTrigger asChild className="md:hidden">
               <Button variant="ghost" size="icon" className="text-luxury-navy">

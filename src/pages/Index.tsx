@@ -1,4 +1,3 @@
-
 import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -10,6 +9,7 @@ import { ArrowRight, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import CurrencySelector from "@/components/CurrencySelector";
+import EmailSignupPopup from "@/components/EmailSignupPopup";
 
 const Index = () => {
   const { translate } = useLanguage();
@@ -60,6 +60,7 @@ const Index = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
+      <EmailSignupPopup />
       
       <main className="flex-grow">
         <HeroSection
