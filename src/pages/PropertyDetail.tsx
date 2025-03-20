@@ -10,6 +10,7 @@ import { PropertyProps } from "@/components/PropertyCard";
 import { MapPin, Building, Bed, Bath, Home, Calendar, ArrowLeft, ArrowRight, Phone, Mail, Percent, ChevronLeft } from "lucide-react";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import PropertyImageGrid from "@/components/PropertyImageGrid";
 
 const propertyData: Record<string, PropertyProps> = {
   "prop1": {
@@ -285,31 +286,7 @@ const PropertyDetail = () => {
         </section>
         
         <section className="luxury-container pb-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="md:col-span-2 h-96">
-              <img 
-                src={extendedInfo.propertyImages[0]} 
-                alt={property.title} 
-                className="w-full h-full object-cover rounded-lg"
-              />
-            </div>
-            <div className="grid grid-cols-1 gap-4">
-              <div className="h-[11rem]">
-                <img 
-                  src={extendedInfo.propertyImages[1]} 
-                  alt={`${property.title} interior`} 
-                  className="w-full h-full object-cover rounded-lg"
-                />
-              </div>
-              <div className="h-[11rem]">
-                <img 
-                  src={extendedInfo.propertyImages[2]} 
-                  alt={`${property.title} another view`} 
-                  className="w-full h-full object-cover rounded-lg"
-                />
-              </div>
-            </div>
-          </div>
+          <PropertyImageGrid images={extendedInfo.propertyImages} title={property.title} />
         </section>
         
         <section className="luxury-container pb-12">
