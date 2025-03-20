@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Dialog, 
   DialogContent,
@@ -17,15 +17,35 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, alt }) => {
   const [currentImage, setCurrentImage] = useState(0);
   const [open, setOpen] = useState(false);
 
-  const nextImage = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const nextImage = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
     setCurrentImage((prev) => (prev + 1) % images.length);
   };
 
-  const prevImage = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const prevImage = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
     setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
   };
+
+  // Add keyboard event listener when the dialog is open
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!open) return;
+      
+      if (e.key === 'ArrowRight') {
+        nextImage();
+      } else if (e.key === 'ArrowLeft') {
+        prevImage();
+      } else if (e.key === 'Escape') {
+        setOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [open, images.length]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
