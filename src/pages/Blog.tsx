@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
@@ -12,11 +12,16 @@ import {
   Building, 
   Landmark, 
   TrendingUp,
-  CreditCard
+  CreditCard,
+  Newspaper,
+  Globe,
+  ExternalLink
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface BlogPost {
   id: string;
@@ -30,8 +35,96 @@ interface BlogPost {
   videoUrl?: string;
 }
 
+interface NewsArticle {
+  id: string;
+  title: string;
+  summary: string;
+  date: string;
+  source: string;
+  url: string;
+  imageUrl: string;
+}
+
 const Blog = () => {
-  const { translate } = useLanguage();
+  const { translate, language } = useLanguage();
+  const [isLoading, setIsLoading] = useState(false);
+  const [newsArticles, setNewsArticles] = useState<NewsArticle[]>([]);
+
+  // Fetch latest news
+  useEffect(() => {
+    const fetchNews = async () => {
+      setIsLoading(true);
+      try {
+        // In a real application, this would be an API call
+        // For demo purposes, we're just using a timeout to simulate an API call
+        await new Promise(resolve => setTimeout(resolve, 1200));
+        
+        // Sample news data
+        const sampleNews: NewsArticle[] = [
+          {
+            id: "news1",
+            title: language === "fr" ? 
+              "Dubaï lance un nouveau visa pour les investisseurs immobiliers" : 
+              "Dubai launches new visa program for real estate investors",
+            summary: language === "fr" ? 
+              "Le gouvernement de Dubaï a annoncé un nouveau programme de visa pour les investisseurs immobiliers étrangers qui achètent des propriétés d'une valeur supérieure à 2 millions AED." : 
+              "Dubai's government announced a new visa program for foreign real estate investors who purchase properties worth over AED 2 million.",
+            date: "2023-07-10",
+            source: "Dubai Media Office",
+            url: "https://www.mediaoffice.ae",
+            imageUrl: "https://images.unsplash.com/photo-1546412414-e1885e51cfa9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80"
+          },
+          {
+            id: "news2",
+            title: language === "fr" ? 
+              "Le marché immobilier de Dubaï connaît une croissance de 18% au premier trimestre" : 
+              "Dubai real estate market sees 18% growth in first quarter",
+            summary: language === "fr" ? 
+              "Selon les données du Département des Terres de Dubaï, le marché immobilier a connu une croissance de 18% au premier trimestre 2023 par rapport à la même période l'année dernière." : 
+              "According to Dubai Land Department data, the real estate market saw 18% growth in Q1 2023 compared to the same period last year.",
+            date: "2023-06-15",
+            source: "Gulf News",
+            url: "https://www.gulfnews.com",
+            imageUrl: "https://images.unsplash.com/photo-1664443477077-11e9a7694dfa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80"
+          },
+          {
+            id: "news3",
+            title: language === "fr" ? 
+              "Nouvel aéroport à Dubaï prévu pour 2030" : 
+              "New Dubai airport planned for 2030",
+            summary: language === "fr" ? 
+              "Dubaï a annoncé un plan pour construire un nouvel aéroport qui devrait être achevé d'ici 2030, ce qui pourrait avoir un impact significatif sur la valeur des propriétés dans les zones environnantes." : 
+              "Dubai announced a plan to build a new airport to be completed by 2030, which could significantly impact property values in surrounding areas.",
+            date: "2023-05-22",
+            source: "Arabian Business",
+            url: "https://www.arabianbusiness.com",
+            imageUrl: "https://images.unsplash.com/photo-1594561279839-c6d510d0882c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80"
+          },
+          {
+            id: "news4",
+            title: language === "fr" ? 
+              "Expo City Dubai lance un nouveau projet de développement durable" : 
+              "Expo City Dubai launches new sustainable development project",
+            summary: language === "fr" ? 
+              "Expo City Dubai a dévoilé un nouveau projet de développement résidentiel et commercial qui mettra l'accent sur la durabilité et les technologies vertes." : 
+              "Expo City Dubai unveiled a new residential and commercial development project that will focus on sustainability and green technologies.",
+            date: "2023-04-18",
+            source: "Khaleej Times",
+            url: "https://www.khaleejtimes.com",
+            imageUrl: "https://images.unsplash.com/photo-1671102327965-1a911c9f1d1b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80"
+          }
+        ];
+        
+        setNewsArticles(sampleNews);
+      } catch (error) {
+        console.error("Failed to fetch news:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    fetchNews();
+  }, [language]); // Re-fetch when language changes to get translated content
 
   const blogPosts: BlogPost[] = [
     {
@@ -118,6 +211,14 @@ const Blog = () => {
     }
   };
 
+  // Format date for news articles
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return language === "fr" 
+      ? date.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })
+      : date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -133,6 +234,84 @@ const Blog = () => {
         
         <section className="section-padding">
           <div className="luxury-container">
+            {/* Latest News Section */}
+            <div className="mb-16">
+              <div className="flex items-center justify-between mb-8">
+                <h2 className="text-2xl font-bold flex items-center">
+                  <Newspaper className="mr-2 h-6 w-6 text-luxury-gold" />
+                  {translate("Latest Market News")}
+                </h2>
+                <div className="flex items-center text-sm text-gray-500">
+                  <Globe className="h-4 w-4 mr-1" />
+                  <span>{language === "fr" ? "Sources d'actualités internationales" : "International News Sources"}</span>
+                </div>
+              </div>
+              
+              {isLoading ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {[1, 2, 3, 4].map((_, index) => (
+                    <Card key={index} className="overflow-hidden">
+                      <Skeleton className="h-48 w-full" />
+                      <CardHeader className="pb-2">
+                        <Skeleton className="h-4 w-3/4 mb-2" />
+                        <Skeleton className="h-3 w-1/2" />
+                      </CardHeader>
+                      <CardContent>
+                        <Skeleton className="h-3 w-full mb-2" />
+                        <Skeleton className="h-3 w-full mb-2" />
+                        <Skeleton className="h-3 w-3/4" />
+                      </CardContent>
+                      <CardFooter>
+                        <Skeleton className="h-9 w-full" />
+                      </CardFooter>
+                    </Card>
+                  ))}
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {newsArticles.map((article) => (
+                    <Card key={article.id} className="overflow-hidden group hover:shadow-lg transition-shadow duration-300">
+                      <div className="aspect-[4/3] overflow-hidden">
+                        <img 
+                          src={article.imageUrl} 
+                          alt={article.title} 
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      </div>
+                      <CardHeader className="pb-2">
+                        <CardTitle className="text-lg group-hover:text-luxury-gold transition-colors">
+                          {article.title}
+                        </CardTitle>
+                        <CardDescription className="flex items-center text-sm">
+                          <CalendarDays className="h-3.5 w-3.5 mr-1 text-gray-400" />
+                          {formatDate(article.date)}
+                          <Badge variant="outline" className="ml-2 text-xs">
+                            {article.source}
+                          </Badge>
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-gray-600 line-clamp-3">
+                          {article.summary}
+                        </p>
+                      </CardContent>
+                      <CardFooter>
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="w-full flex items-center justify-center group-hover:border-luxury-gold group-hover:text-luxury-gold transition-colors"
+                          onClick={() => window.open(article.url, '_blank')}
+                        >
+                          {language === "fr" ? "Lire l'article complet" : "Read Full Article"}
+                          <ExternalLink className="ml-1 h-3.5 w-3.5" />
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  ))}
+                </div>
+              )}
+            </div>
+            
             {/* Featured Posts */}
             {featuredPosts.length > 0 && (
               <div className="mb-16">
