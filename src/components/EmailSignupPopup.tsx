@@ -14,6 +14,8 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import emailjs from '@emailjs/browser';
+import { TARGET_EMAIL, EMAILJS_CONFIG, EMAIL_TEMPLATES } from "@/config/email";
 
 const EmailSignupPopup = () => {
   const { translate } = useLanguage();
@@ -53,22 +55,56 @@ const EmailSignupPopup = () => {
     setIsSubmitting(true);
     
     try {
-      // In a real implementation, you would send an API request to your backend
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Send email notification to company about new subscriber
+      const templateParams = {
+        from_name: "Website Newsletter Subscription",
+        from_email: email,
+        subject: "New Newsletter Subscription",
+        message: `New subscriber with email: ${email}`,
+        to_email: TARGET_EMAIL,
+        subscription_date: new Date().toISOString(),
+      };
       
-      setIsSuccess(true);
-      localStorage.setItem("hasSeenEmailPopup", "true");
+      const response = await emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.TEMPLATE_ID_NEWSLETTER,
+        templateParams,
+        EMAILJS_CONFIG.PUBLIC_KEY
+      );
       
-      toast({
-        title: translate("Successfully Subscribed"),
-        description: translate("Thank you for subscribing to our market updates."),
-      });
-      
-      // Close popup after successful subscription (with delay to show success state)
-      setTimeout(() => {
-        setIsOpen(false);
-      }, 2000);
+      if (response.status === 200) {
+        // Send confirmation email to subscriber
+        const confirmationParams = {
+          to_name: "Valued Subscriber", // Generic name as we only have email
+          to_email: email,
+          subject: EMAIL_TEMPLATES.newsletterConfirmation.subject,
+          message: EMAIL_TEMPLATES.newsletterConfirmation.body,
+          from_name: "Me & My Dubai",
+          reply_to: TARGET_EMAIL,
+        };
+        
+        await emailjs.send(
+          EMAILJS_CONFIG.SERVICE_ID,
+          EMAILJS_CONFIG.TEMPLATE_ID_CONFIRMATION,
+          confirmationParams,
+          EMAILJS_CONFIG.PUBLIC_KEY
+        );
+        
+        setIsSuccess(true);
+        localStorage.setItem("hasSeenEmailPopup", "true");
+        
+        toast({
+          title: translate("Successfully Subscribed"),
+          description: translate("Thank you for subscribing to our market updates."),
+        });
+        
+        // Close popup after successful subscription (with delay to show success state)
+        setTimeout(() => {
+          setIsOpen(false);
+        }, 2000);
+      } else {
+        throw new Error("Failed to send subscription email");
+      }
     } catch (error) {
       console.error("Error subscribing:", error);
       toast({

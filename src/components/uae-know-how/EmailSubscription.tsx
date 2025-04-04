@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from "react-router-dom";
+import emailjs from '@emailjs/browser';
+import { TARGET_EMAIL, EMAILJS_CONFIG, EMAIL_TEMPLATES } from "@/config/email";
 
 const EmailSubscription = () => {
   const { translate } = useLanguage();
@@ -32,35 +34,52 @@ const EmailSubscription = () => {
     setIsSubmitting(true);
     
     try {
-      // In a real implementation, you would send an API request to your backend
-      // Example with fetch:
-      // const response = await fetch('/api/subscribe', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({
-      //     email: email,
-      //     listName: "UAE Market Insights",
-      //     consentTimestamp: new Date().toISOString(),
-      //     consentType: "explicit",
-      //     consentRecord: {
-      //       ipAddress: "collected-by-server",
-      //       userAgent: navigator.userAgent,
-      //       timestamp: new Date().toISOString()
-      //     }
-      //   })
-      // });
+      // Send email notification to company about new subscriber
+      const templateParams = {
+        from_name: "UAE Know-How Newsletter Subscription",
+        from_email: email,
+        subject: "New UAE Know-How Newsletter Subscription",
+        message: `New subscriber with email: ${email} from the UAE Know-How page.`,
+        to_email: TARGET_EMAIL,
+        subscription_date: new Date().toISOString(),
+      };
       
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const response = await emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.TEMPLATE_ID_NEWSLETTER,
+        templateParams,
+        EMAILJS_CONFIG.PUBLIC_KEY
+      );
       
-      setIsSubscribed(true);
-      setEmail("");
-      setConsentGiven(false);
-      
-      toast({
-        title: translate("Thanks for subscribing!"),
-        description: translate("You'll receive our latest UAE market insights."),
-      });
+      if (response.status === 200) {
+        // Send confirmation email to subscriber
+        const confirmationParams = {
+          to_name: "Valued Subscriber", // Generic name as we only have email
+          to_email: email,
+          subject: EMAIL_TEMPLATES.newsletterConfirmation.subject,
+          message: EMAIL_TEMPLATES.newsletterConfirmation.body,
+          from_name: "Me & My Dubai",
+          reply_to: TARGET_EMAIL,
+        };
+        
+        await emailjs.send(
+          EMAILJS_CONFIG.SERVICE_ID,
+          EMAILJS_CONFIG.TEMPLATE_ID_CONFIRMATION,
+          confirmationParams,
+          EMAILJS_CONFIG.PUBLIC_KEY
+        );
+        
+        setIsSubscribed(true);
+        setEmail("");
+        setConsentGiven(false);
+        
+        toast({
+          title: translate("Thanks for subscribing!"),
+          description: translate("You'll receive our latest UAE market insights."),
+        });
+      } else {
+        throw new Error("Failed to send subscription email");
+      }
     } catch (error) {
       console.error("Error subscribing:", error);
       toast({
