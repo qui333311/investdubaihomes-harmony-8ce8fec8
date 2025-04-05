@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,8 +19,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import emailjs from '@emailjs/browser';
-import { TARGET_EMAIL, EMAILJS_CONFIG, EMAIL_TEMPLATES } from "@/config/email";
+import { TARGET_EMAIL } from "@/config/email";
+import { sendContactEmail } from "@/services/emailService";
 
 // Define the form schema with Zod
 const formSchema = z.object({
@@ -65,43 +64,15 @@ const ContactForm: React.FC = () => {
     setIsLoading(true);
     
     try {
-      // Prepare template parameters for main email to company
-      const templateParams = {
-        from_name: values.name,
-        from_email: values.email,
-        phone: values.phone || "Not provided",
+      const success = await sendContactEmail({
+        name: values.name,
+        email: values.email,
+        phone: values.phone,
         subject: values.subject,
         message: values.message,
-        to_email: TARGET_EMAIL,
-        consent_timestamp: new Date().toISOString(),
-      };
+      });
       
-      // Send email to company using EmailJS
-      const response = await emailjs.send(
-        EMAILJS_CONFIG.SERVICE_ID,
-        EMAILJS_CONFIG.TEMPLATE_ID,
-        templateParams,
-        EMAILJS_CONFIG.PUBLIC_KEY
-      );
-      
-      if (response.status === 200) {
-        // Send confirmation email to the user
-        const confirmationParams = {
-          to_name: values.name,
-          to_email: values.email,
-          subject: EMAIL_TEMPLATES.confirmation.subject,
-          message: EMAIL_TEMPLATES.confirmation.body,
-          from_name: "Me & My Dubai",
-          reply_to: TARGET_EMAIL,
-        };
-        
-        await emailjs.send(
-          EMAILJS_CONFIG.SERVICE_ID,
-          EMAILJS_CONFIG.TEMPLATE_ID_CONFIRMATION,
-          confirmationParams,
-          EMAILJS_CONFIG.PUBLIC_KEY
-        );
-        
+      if (success) {
         toast({
           title: translate("Message Sent!"),
           description: translate("Thank you for your inquiry. We'll get back to you soon."),
