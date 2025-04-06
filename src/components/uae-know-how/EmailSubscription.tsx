@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Mail, CheckCircle2, Lock, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,11 @@ const EmailSubscription = () => {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [consentGiven, setConsentGiven] = useState(false);
   const [showDataInfo, setShowDataInfo] = useState(false);
+
+  // Initialize EmailJS with public key
+  useEffect(() => {
+    emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,8 +52,7 @@ const EmailSubscription = () => {
       const response = await emailjs.send(
         EMAILJS_CONFIG.SERVICE_ID,
         EMAILJS_CONFIG.TEMPLATE_ID_NEWSLETTER,
-        templateParams,
-        EMAILJS_CONFIG.PUBLIC_KEY
+        templateParams
       );
       
       if (response.status === 200) {
@@ -65,8 +69,7 @@ const EmailSubscription = () => {
         await emailjs.send(
           EMAILJS_CONFIG.SERVICE_ID,
           EMAILJS_CONFIG.TEMPLATE_ID_CONFIRMATION,
-          confirmationParams,
-          EMAILJS_CONFIG.PUBLIC_KEY
+          confirmationParams
         );
         
         setIsSubscribed(true);

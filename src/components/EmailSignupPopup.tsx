@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Mail, X, ChevronRight, CheckCircle2 } from "lucide-react";
@@ -25,6 +24,11 @@ const EmailSignupPopup = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [consentGiven, setConsentGiven] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+
+  // Initialize EmailJS with public key
+  useEffect(() => {
+    emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+  }, []);
 
   // Show popup after a short delay when component mounts
   useEffect(() => {
@@ -68,8 +72,7 @@ const EmailSignupPopup = () => {
       const response = await emailjs.send(
         EMAILJS_CONFIG.SERVICE_ID,
         EMAILJS_CONFIG.TEMPLATE_ID_NEWSLETTER,
-        templateParams,
-        EMAILJS_CONFIG.PUBLIC_KEY
+        templateParams
       );
       
       if (response.status === 200) {
@@ -86,8 +89,7 @@ const EmailSignupPopup = () => {
         await emailjs.send(
           EMAILJS_CONFIG.SERVICE_ID,
           EMAILJS_CONFIG.TEMPLATE_ID_CONFIRMATION,
-          confirmationParams,
-          EMAILJS_CONFIG.PUBLIC_KEY
+          confirmationParams
         );
         
         setIsSuccess(true);
