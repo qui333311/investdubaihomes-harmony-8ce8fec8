@@ -55,6 +55,11 @@ const EmailSignupPopup = () => {
     setIsSubmitting(true);
     
     try {
+      // Initialize EmailJS if not done globally
+      if (!emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY)) {
+        emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+      }
+      
       // Send email notification to company about new subscriber
       const templateParams = {
         from_name: "Website Newsletter Subscription",
@@ -68,8 +73,7 @@ const EmailSignupPopup = () => {
       const response = await emailjs.send(
         EMAILJS_CONFIG.SERVICE_ID,
         EMAILJS_CONFIG.TEMPLATE_ID_NEWSLETTER,
-        templateParams,
-        EMAILJS_CONFIG.PUBLIC_KEY
+        templateParams
       );
       
       if (response.status === 200) {
@@ -86,8 +90,7 @@ const EmailSignupPopup = () => {
         await emailjs.send(
           EMAILJS_CONFIG.SERVICE_ID,
           EMAILJS_CONFIG.TEMPLATE_ID_CONFIRMATION,
-          confirmationParams,
-          EMAILJS_CONFIG.PUBLIC_KEY
+          confirmationParams
         );
         
         setIsSuccess(true);
