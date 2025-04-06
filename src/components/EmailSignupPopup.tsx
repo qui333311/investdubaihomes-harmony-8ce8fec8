@@ -26,6 +26,11 @@ const EmailSignupPopup = () => {
   const [consentGiven, setConsentGiven] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
+  // Initialize EmailJS when component mounts
+  useEffect(() => {
+    emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+  }, []);
+
   // Show popup after a short delay when component mounts
   useEffect(() => {
     // Check if user has already seen popup (using localStorage)
@@ -55,11 +60,6 @@ const EmailSignupPopup = () => {
     setIsSubmitting(true);
     
     try {
-      // Initialize EmailJS if not done globally
-      if (!emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY)) {
-        emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
-      }
-      
       // Send email notification to company about new subscriber
       const templateParams = {
         from_name: "Website Newsletter Subscription",
