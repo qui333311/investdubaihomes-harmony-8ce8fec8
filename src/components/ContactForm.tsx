@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -48,11 +48,6 @@ const ContactForm: React.FC = () => {
   const { translate } = useLanguage();
   const [isLoading, setIsLoading] = useState(false);
 
-  // Initialize EmailJS when component mounts
-  useEffect(() => {
-    emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
-  }, []);
-
   // Initialize React Hook Form
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -70,6 +65,11 @@ const ContactForm: React.FC = () => {
     setIsLoading(true);
     
     try {
+      // Initialize EmailJS if not done globally
+      if (!emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY)) {
+        emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+      }
+      
       // Prepare template parameters for main email to company
       const templateParams = {
         from_name: values.name,

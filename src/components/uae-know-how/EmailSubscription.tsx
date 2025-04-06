@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Mail, CheckCircle2, Lock, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -19,11 +19,6 @@ const EmailSubscription = () => {
   const [consentGiven, setConsentGiven] = useState(false);
   const [showDataInfo, setShowDataInfo] = useState(false);
 
-  // Initialize EmailJS when component mounts
-  useEffect(() => {
-    emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
-  }, []);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -39,6 +34,11 @@ const EmailSubscription = () => {
     setIsSubmitting(true);
     
     try {
+      // Initialize EmailJS if not done globally
+      if (!emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY)) {
+        emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+      }
+      
       // Send email notification to company about new subscriber
       const templateParams = {
         from_name: "UAE Know-How Newsletter Subscription",
