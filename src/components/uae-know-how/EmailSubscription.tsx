@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Mail, CheckCircle2, Lock, Shield } from "lucide-react";
@@ -6,8 +7,8 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from "react-router-dom";
-import { TARGET_EMAIL } from "@/config/email";
-import { sendNewsletterSubscription } from "@/services/emailService";
+import emailjs from '@emailjs/browser';
+import { TARGET_EMAIL, EMAILJS_CONFIG, EMAIL_TEMPLATES } from "@/config/email";
 
 const EmailSubscription = () => {
   const { translate } = useLanguage();
@@ -33,9 +34,41 @@ const EmailSubscription = () => {
     setIsSubmitting(true);
     
     try {
-      const success = await sendNewsletterSubscription(email);
+      // Send email notification to company about new subscriber
+      const templateParams = {
+        from_name: "UAE Know-How Newsletter Subscription",
+        from_email: email,
+        subject: "New UAE Know-How Newsletter Subscription",
+        message: `New subscriber with email: ${email} from the UAE Know-How page.`,
+        to_email: TARGET_EMAIL,
+        subscription_date: new Date().toISOString(),
+      };
       
-      if (success) {
+      const response = await emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.TEMPLATE_ID_NEWSLETTER,
+        templateParams,
+        EMAILJS_CONFIG.PUBLIC_KEY
+      );
+      
+      if (response.status === 200) {
+        // Send confirmation email to subscriber
+        const confirmationParams = {
+          to_name: "Valued Subscriber", // Generic name as we only have email
+          to_email: email,
+          subject: EMAIL_TEMPLATES.newsletterConfirmation.subject,
+          message: EMAIL_TEMPLATES.newsletterConfirmation.body,
+          from_name: "Me & My Dubai",
+          reply_to: TARGET_EMAIL,
+        };
+        
+        await emailjs.send(
+          EMAILJS_CONFIG.SERVICE_ID,
+          EMAILJS_CONFIG.TEMPLATE_ID_CONFIRMATION,
+          confirmationParams,
+          EMAILJS_CONFIG.PUBLIC_KEY
+        );
+        
         setIsSubscribed(true);
         setEmail("");
         setConsentGiven(false);

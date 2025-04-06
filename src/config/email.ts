@@ -4,6 +4,15 @@
 // The target email where all contact form submissions and newsletter subscriptions will be sent
 export const TARGET_EMAIL = "info@memydubai.com";
 
+// EmailJS configuration
+export const EMAILJS_CONFIG = {
+  SERVICE_ID: "service_contact_form", // Replace with your actual EmailJS Service ID
+  TEMPLATE_ID: "template_contact_form", // Replace with your actual EmailJS Template ID
+  TEMPLATE_ID_NEWSLETTER: "template_newsletter", // Template for newsletter subscriptions
+  TEMPLATE_ID_CONFIRMATION: "template_confirmation", // Template for confirmation emails
+  PUBLIC_KEY: "YOUR_PUBLIC_KEY", // Replace with your actual EmailJS Public Key
+};
+
 // Email content templates
 export const EMAIL_TEMPLATES = {
   confirmation: {
