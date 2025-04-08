@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Mail, X, ChevronRight, CheckCircle2 } from "lucide-react";
@@ -28,6 +29,7 @@ const EmailSignupPopup = () => {
   // Initialize EmailJS with public key
   useEffect(() => {
     emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+    console.log("EmailJS initialized with:", EMAILJS_CONFIG.PUBLIC_KEY);
   }, []);
 
   // Show popup after a short delay when component mounts
@@ -59,6 +61,7 @@ const EmailSignupPopup = () => {
     setIsSubmitting(true);
     
     try {
+      console.log("Sending email with service ID:", EMAILJS_CONFIG.SERVICE_ID);
       // Send email notification to company about new subscriber
       const templateParams = {
         from_name: "Website Newsletter Subscription",
@@ -74,6 +77,8 @@ const EmailSignupPopup = () => {
         EMAILJS_CONFIG.TEMPLATE_ID_NEWSLETTER,
         templateParams
       );
+      
+      console.log("Email response:", response);
       
       if (response.status === 200) {
         // Send confirmation email to subscriber
