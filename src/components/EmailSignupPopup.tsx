@@ -62,12 +62,13 @@ const EmailSignupPopup = () => {
     
     try {
       console.log("Sending email with service ID:", EMAILJS_CONFIG.SERVICE_ID);
+      
       // Send email notification to company about new subscriber
       const templateParams = {
         from_name: "Website Newsletter Subscription",
         from_email: email,
-        to_name: "Me & My Dubai Team", // Added recipient name
-        to_email: TARGET_EMAIL, // Make sure this is not empty
+        to_name: "Me & My Dubai Team",
+        to_email: TARGET_EMAIL,
         subject: "New Newsletter Subscription",
         message: `New subscriber with email: ${email}`,
         subscription_date: new Date().toISOString(),
@@ -86,10 +87,10 @@ const EmailSignupPopup = () => {
       if (response.status === 200) {
         // Send confirmation email to subscriber
         const confirmationParams = {
-          to_name: "Valued Subscriber", // Generic name as we only have email
+          to_name: "Valued Subscriber",
           to_email: email,
           from_name: "Me & My Dubai",
-          from_email: TARGET_EMAIL, // Added sender email
+          from_email: TARGET_EMAIL,
           reply_to: TARGET_EMAIL,
           subject: EMAIL_TEMPLATES.newsletterConfirmation.subject,
           message: EMAIL_TEMPLATES.newsletterConfirmation.body,
