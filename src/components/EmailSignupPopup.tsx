@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Mail, X, ChevronRight, CheckCircle2 } from "lucide-react";
@@ -29,7 +28,7 @@ const EmailSignupPopup = () => {
   // Initialize EmailJS with public key
   useEffect(() => {
     emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
-    console.log("EmailJS initialized with:", EMAILJS_CONFIG.PUBLIC_KEY);
+    console.log("EmailSignupPopup: EmailJS initialized with:", EMAILJS_CONFIG.PUBLIC_KEY);
   }, []);
 
   // Show popup after a short delay when component mounts
@@ -79,7 +78,8 @@ const EmailSignupPopup = () => {
       const response = await emailjs.send(
         EMAILJS_CONFIG.SERVICE_ID,
         EMAILJS_CONFIG.TEMPLATE_ID_NEWSLETTER,
-        templateParams
+        templateParams,
+        EMAILJS_CONFIG.PUBLIC_KEY // Add public key explicitly
       );
       
       console.log("Email response:", response);
@@ -101,7 +101,8 @@ const EmailSignupPopup = () => {
         await emailjs.send(
           EMAILJS_CONFIG.SERVICE_ID,
           EMAILJS_CONFIG.TEMPLATE_ID_CONFIRMATION,
-          confirmationParams
+          confirmationParams,
+          EMAILJS_CONFIG.PUBLIC_KEY // Add public key explicitly
         );
         
         setIsSuccess(true);

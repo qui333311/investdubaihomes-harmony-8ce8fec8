@@ -35,6 +35,7 @@ export const EMAIL_TEMPLATE_PARAMS = {
       "subject", // Subject of the message
       "message", // Message body
       "to_email", // Email of the recipient (should be TARGET_EMAIL)
+      "to_name", // Name of the recipient (added to ensure it's included)
     ]
   },
   confirmation: {

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -46,6 +47,12 @@ const ContactForm: React.FC = () => {
   const { translate } = useLanguage();
   const [isLoading, setIsLoading] = useState(false);
 
+  // Initialize EmailJS when the component mounts
+  useEffect(() => {
+    emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+    console.log("ContactForm: EmailJS initialized with:", EMAILJS_CONFIG.PUBLIC_KEY);
+  }, []);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -62,6 +69,7 @@ const ContactForm: React.FC = () => {
     setIsLoading(true);
     
     try {
+      // Prepare template parameters for contact form email
       const templateParams = {
         from_name: values.name,
         from_email: values.email,
@@ -74,16 +82,20 @@ const ContactForm: React.FC = () => {
       };
       
       console.log("Contact form template params:", templateParams);
+      console.log("Using service ID:", EMAILJS_CONFIG.SERVICE_ID);
+      console.log("Using template ID:", EMAILJS_CONFIG.TEMPLATE_ID);
       
       const response = await emailjs.send(
         EMAILJS_CONFIG.SERVICE_ID,
         EMAILJS_CONFIG.TEMPLATE_ID,
-        templateParams
+        templateParams,
+        EMAILJS_CONFIG.PUBLIC_KEY // Add public key explicitly
       );
       
       console.log("Contact form email response:", response);
       
       if (response.status === 200) {
+        // Send confirmation email
         const confirmationParams = {
           to_name: values.name,
           to_email: values.email,
@@ -99,7 +111,8 @@ const ContactForm: React.FC = () => {
         await emailjs.send(
           EMAILJS_CONFIG.SERVICE_ID,
           EMAILJS_CONFIG.TEMPLATE_ID_CONFIRMATION,
-          confirmationParams
+          confirmationParams,
+          EMAILJS_CONFIG.PUBLIC_KEY // Add public key explicitly
         );
         
         toast({
