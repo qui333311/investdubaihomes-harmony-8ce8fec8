@@ -66,11 +66,14 @@ const EmailSignupPopup = () => {
       const templateParams = {
         from_name: "Website Newsletter Subscription",
         from_email: email,
+        to_name: "Me & My Dubai Team", // Added recipient name
+        to_email: TARGET_EMAIL, // Make sure this is not empty
         subject: "New Newsletter Subscription",
         message: `New subscriber with email: ${email}`,
-        to_email: TARGET_EMAIL,
         subscription_date: new Date().toISOString(),
       };
+      
+      console.log("Newsletter template params:", templateParams);
       
       const response = await emailjs.send(
         EMAILJS_CONFIG.SERVICE_ID,
@@ -85,11 +88,14 @@ const EmailSignupPopup = () => {
         const confirmationParams = {
           to_name: "Valued Subscriber", // Generic name as we only have email
           to_email: email,
+          from_name: "Me & My Dubai",
+          from_email: TARGET_EMAIL, // Added sender email
+          reply_to: TARGET_EMAIL,
           subject: EMAIL_TEMPLATES.newsletterConfirmation.subject,
           message: EMAIL_TEMPLATES.newsletterConfirmation.body,
-          from_name: "Me & My Dubai",
-          reply_to: TARGET_EMAIL,
         };
+        
+        console.log("Confirmation template params:", confirmationParams);
         
         await emailjs.send(
           EMAILJS_CONFIG.SERVICE_ID,
