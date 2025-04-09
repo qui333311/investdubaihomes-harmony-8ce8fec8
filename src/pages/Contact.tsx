@@ -1,9 +1,8 @@
-
 import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
-import { Phone, Mail, MapPin, Linkedin, Instagram, Twitter, Youtube, MessageCircle, WhatsApp } from "lucide-react";
+import { Phone, Mail, MapPin, Linkedin, Instagram, Twitter, Youtube, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import HeroSection from "@/components/HeroSection";
 import { useLanguage } from "@/contexts/LanguageContext";
