@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import CurrencySelector from "@/components/CurrencySelector";
 import EmailSignupPopup from "@/components/EmailSignupPopup";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const Index = () => {
   const { translate } = useLanguage();
@@ -212,6 +213,12 @@ const Index = () => {
       </main>
       
       <Footer />
+      
+      {/* Add floating WhatsApp button */}
+      <WhatsAppButton 
+        phoneNumber="+971585999458" 
+        variant="fixed" 
+      />
     </div>
   );
 };

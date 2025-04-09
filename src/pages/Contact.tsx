@@ -3,10 +3,11 @@ import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
-import { Phone, Mail, MapPin, Linkedin, Instagram, Twitter, Youtube, MessageCircle } from "lucide-react";
+import { Phone, Mail, MapPin, Linkedin, Instagram, Twitter, Youtube, MessageCircle, WhatsApp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import HeroSection from "@/components/HeroSection";
 import { useLanguage } from "@/contexts/LanguageContext";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const Contact = () => {
   const { translate } = useLanguage();
@@ -86,9 +87,7 @@ const Contact = () => {
                 <div>
                   <h4 className="text-lg font-medium mb-4">{translate("Instant Messaging")}</h4>
                   <div className="flex flex-wrap gap-4">
-                    <Button size="lg" className="bg-[#25D366] hover:bg-[#25D366]/90">
-                      <MessageCircle className="mr-2 h-5 w-5" /> {translate("WhatsApp")}
-                    </Button>
+                    <WhatsAppButton phoneNumber="+971585999458" />
                     
                     <Button size="lg" className="bg-[#0088cc] hover:bg-[#0088cc]/90">
                       <MessageCircle className="mr-2 h-5 w-5" /> {translate("Telegram")}
@@ -120,6 +119,12 @@ const Contact = () => {
       </main>
       
       <Footer />
+      
+      {/* Add floating WhatsApp button */}
+      <WhatsAppButton 
+        phoneNumber="+971585999458" 
+        variant="fixed" 
+      />
     </div>
   );
 };
