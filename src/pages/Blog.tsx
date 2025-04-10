@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -15,7 +14,8 @@ import {
   CreditCard,
   Newspaper,
   Globe,
-  ExternalLink
+  ExternalLink,
+  PenSquare
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -33,6 +33,7 @@ interface BlogPost {
   category: string;
   featured?: boolean;
   videoUrl?: string;
+  content?: string;
 }
 
 interface NewsArticle {
@@ -49,17 +50,86 @@ const Blog = () => {
   const { translate, language } = useLanguage();
   const [isLoading, setIsLoading] = useState(false);
   const [newsArticles, setNewsArticles] = useState<NewsArticle[]>([]);
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
 
-  // Fetch latest news
+  useEffect(() => {
+    const loadBlogPosts = () => {
+      const storedPosts = JSON.parse(localStorage.getItem('blogPosts') || '[]');
+      
+      const defaultPosts: BlogPost[] = [
+        {
+          id: "post1",
+          title: "Dubai Real Estate Market Update Q2 2023",
+          excerpt: "Explore the latest trends and insights from Dubai's booming real estate market in the second quarter of 2023.",
+          date: "July 15, 2023",
+          readTime: "5 min read",
+          imageUrl: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
+          category: "Market Updates",
+          featured: true
+        },
+        {
+          id: "post2",
+          title: "The Rise of Dubai Hills: Investment Opportunity",
+          excerpt: "Dubai Hills is quickly becoming one of the city's most sought-after residential communities. Here's why investors are taking notice.",
+          date: "June 28, 2023",
+          readTime: "4 min read",
+          imageUrl: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
+          category: "Investment Insights"
+        },
+        {
+          id: "post3",
+          title: "Guide to Setting Up a Company in DIFC",
+          excerpt: "Learn the step-by-step process for establishing your business in Dubai International Financial Centre, one of the world's leading financial hubs.",
+          date: "June 15, 2023",
+          readTime: "6 min read",
+          imageUrl: "https://images.unsplash.com/photo-1582281171754-534e23d0f483?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
+          category: "Business Setup"
+        },
+        {
+          id: "post4",
+          title: "Cryptocurrency and Dubai Real Estate: What You Need to Know",
+          excerpt: "As cryptocurrency adoption grows, Dubai developers are increasingly accepting digital currencies for property purchases. Here's what investors should understand.",
+          date: "May 30, 2023",
+          readTime: "7 min read",
+          imageUrl: "https://images.unsplash.com/photo-1639322537228-f710d846310a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80",
+          category: "Crypto Investing",
+          featured: true
+        },
+        {
+          id: "post5",
+          title: "Property Tour: Palm Jumeirah Signature Villas",
+          excerpt: "Take a virtual tour of the exclusive Signature Villas on Palm Jumeirah, offering luxury waterfront living at its finest.",
+          date: "May 18, 2023",
+          readTime: "3 min read",
+          imageUrl: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
+          category: "Property Spotlight",
+          videoUrl: "https://player.vimeo.com/external/517090081.sd.mp4?s=47a74bbf6eb93c94b6bbb5322cf41860238724b5&profile_id=164&oauth2_token_id=57447761"
+        },
+        {
+          id: "post6",
+          title: "New Mortgage Regulations for Foreign Investors",
+          excerpt: "Recent changes to mortgage regulations are making it easier for foreign investors to finance properties in Dubai. We break down what this means for international buyers.",
+          date: "May 5, 2023",
+          readTime: "5 min read",
+          imageUrl: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
+          category: "Financing",
+          videoUrl: "https://player.vimeo.com/external/499006811.sd.mp4?s=d2ec7e5ee73a44ade1a8bd0ac9f0525c42942842&profile_id=164&oauth2_token_id=57447761"
+        }
+      ];
+      
+      const allPosts = storedPosts.length > 0 ? [...storedPosts, ...defaultPosts] : defaultPosts;
+      setBlogPosts(allPosts);
+    };
+    
+    loadBlogPosts();
+  }, []);
+
   useEffect(() => {
     const fetchNews = async () => {
       setIsLoading(true);
       try {
-        // In a real application, this would be an API call
-        // For demo purposes, we're just using a timeout to simulate an API call
         await new Promise(resolve => setTimeout(resolve, 1200));
         
-        // Sample news data
         const sampleNews: NewsArticle[] = [
           {
             id: "news1",
@@ -124,74 +194,12 @@ const Blog = () => {
     };
     
     fetchNews();
-  }, [language]); // Re-fetch when language changes to get translated content
-
-  const blogPosts: BlogPost[] = [
-    {
-      id: "post1",
-      title: "Dubai Real Estate Market Update Q2 2023",
-      excerpt: "Explore the latest trends and insights from Dubai's booming real estate market in the second quarter of 2023.",
-      date: "July 15, 2023",
-      readTime: "5 min read",
-      imageUrl: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
-      category: "Market Updates",
-      featured: true
-    },
-    {
-      id: "post2",
-      title: "The Rise of Dubai Hills: Investment Opportunity",
-      excerpt: "Dubai Hills is quickly becoming one of the city's most sought-after residential communities. Here's why investors are taking notice.",
-      date: "June 28, 2023",
-      readTime: "4 min read",
-      imageUrl: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
-      category: "Investment Insights"
-    },
-    {
-      id: "post3",
-      title: "Guide to Setting Up a Company in DIFC",
-      excerpt: "Learn the step-by-step process for establishing your business in Dubai International Financial Centre, one of the world's leading financial hubs.",
-      date: "June 15, 2023",
-      readTime: "6 min read",
-      imageUrl: "https://images.unsplash.com/photo-1582281171754-534e23d0f483?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
-      category: "Business Setup"
-    },
-    {
-      id: "post4",
-      title: "Cryptocurrency and Dubai Real Estate: What You Need to Know",
-      excerpt: "As cryptocurrency adoption grows, Dubai developers are increasingly accepting digital currencies for property purchases. Here's what investors should understand.",
-      date: "May 30, 2023",
-      readTime: "7 min read",
-      imageUrl: "https://images.unsplash.com/photo-1639322537228-f710d846310a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80",
-      category: "Crypto Investing",
-      featured: true
-    },
-    {
-      id: "post5",
-      title: "Property Tour: Palm Jumeirah Signature Villas",
-      excerpt: "Take a virtual tour of the exclusive Signature Villas on Palm Jumeirah, offering luxury waterfront living at its finest.",
-      date: "May 18, 2023",
-      readTime: "3 min read",
-      imageUrl: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
-      category: "Property Spotlight",
-      videoUrl: "https://player.vimeo.com/external/517090081.sd.mp4?s=47a74bbf6eb93c94b6bbb5322cf41860238724b5&profile_id=164&oauth2_token_id=57447761"
-    },
-    {
-      id: "post6",
-      title: "New Mortgage Regulations for Foreign Investors",
-      excerpt: "Recent changes to mortgage regulations are making it easier for foreign investors to finance properties in Dubai. We break down what this means for international buyers.",
-      date: "May 5, 2023",
-      readTime: "5 min read",
-      imageUrl: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
-      category: "Financing",
-      videoUrl: "https://player.vimeo.com/external/499006811.sd.mp4?s=d2ec7e5ee73a44ade1a8bd0ac9f0525c42942842&profile_id=164&oauth2_token_id=57447761"
-    }
-  ];
+  }, [language]);
 
   const featuredPosts = blogPosts.filter(post => post.featured);
   const videoPosts = blogPosts.filter(post => post.videoUrl);
   const regularPosts = blogPosts.filter(post => !post.featured);
 
-  // Function to get category icon
   const getCategoryIcon = (category: string) => {
     switch(category) {
       case "Market Updates":
@@ -211,7 +219,6 @@ const Blog = () => {
     }
   };
 
-  // Format date for news articles
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return language === "fr" 
@@ -234,7 +241,19 @@ const Blog = () => {
         
         <section className="section-padding">
           <div className="luxury-container">
-            {/* Latest News Section */}
+            <div className="mb-8 flex justify-end">
+              <Button 
+                variant="outline" 
+                className="flex items-center gap-2 border-luxury-gold text-luxury-gold hover:bg-luxury-gold/10"
+                asChild
+              >
+                <Link to="/admin/blog-upload">
+                  <PenSquare className="h-4 w-4" />
+                  {translate("Add New Article")}
+                </Link>
+              </Button>
+            </div>
+            
             <div className="mb-16">
               <div className="flex items-center justify-between mb-8">
                 <h2 className="text-2xl font-bold flex items-center">
@@ -312,7 +331,6 @@ const Blog = () => {
               )}
             </div>
             
-            {/* Featured Posts */}
             {featuredPosts.length > 0 && (
               <div className="mb-16">
                 <h2 className="text-2xl font-bold mb-8">{translate("Featured Articles")}</h2>
@@ -363,7 +381,6 @@ const Blog = () => {
               </div>
             )}
             
-            {/* Video Updates */}
             {videoPosts.length > 0 && (
               <div className="mb-16">
                 <h2 className="text-2xl font-bold mb-8">{translate("Property Video Updates")}</h2>
@@ -409,7 +426,6 @@ const Blog = () => {
               </div>
             )}
             
-            {/* Latest Articles */}
             <div>
               <h2 className="text-2xl font-bold mb-8">{translate("Latest Articles")}</h2>
               
@@ -461,7 +477,6 @@ const Blog = () => {
               </div>
             </div>
             
-            {/* Related Services Section */}
             <div className="mt-20 bg-gray-50 p-8 rounded-lg">
               <h2 className="text-2xl font-bold mb-6">{translate("Explore Related Services")}</h2>
               

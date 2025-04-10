@@ -16,6 +16,7 @@ import Financing from './pages/Financing';
 import ROI from './pages/ROI';
 import CompanySetup from './pages/CompanySetup';
 import PropertyUpload from './pages/Admin/PropertyUpload';
+import BlogUpload from './pages/Admin/BlogUpload';
 import CryptoBuying from './pages/CryptoBuying';
 import AreaDetail from './pages/AreaDetail';
 import Blog from './pages/Blog';
@@ -42,6 +43,7 @@ function App() {
             <Route path="/roi" element={<ROI />} />
             <Route path="/company-setup" element={<CompanySetup />} />
             <Route path="/admin/property-upload" element={<PropertyUpload />} />
+            <Route path="/admin/blog-upload" element={<BlogUpload />} />
             <Route path="/crypto-buying" element={<CryptoBuying />} />
             <Route path="/area/:id" element={<AreaDetail />} />
             <Route path="/blog" element={<Blog />} />
