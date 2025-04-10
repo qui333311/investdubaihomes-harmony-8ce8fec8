@@ -20,6 +20,7 @@ import BlogUpload from './pages/Admin/BlogUpload';
 import CryptoBuying from './pages/CryptoBuying';
 import AreaDetail from './pages/AreaDetail';
 import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
 import CookieConsent from './components/compliance/CookieConsent';
 import CookiePolicy from './pages/CookiePolicy';
 import PrivacyPolicy from './pages/PrivacyPolicy';
@@ -48,6 +49,7 @@ function App() {
             <Route path="/crypto-buying" element={<CryptoBuying />} />
             <Route path="/area/:id" element={<AreaDetail />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<BlogPost />} />
             <Route path="/map" element={<Map />} />
             <Route path="/cookie-policy" element={<CookiePolicy />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
