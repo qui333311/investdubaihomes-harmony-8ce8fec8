@@ -1,6 +1,6 @@
 
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Index from './pages/Index';
 import Properties from './pages/Properties';
 import PropertyDetail from './pages/PropertyDetail';
@@ -25,6 +25,7 @@ import CookiePolicy from './pages/CookiePolicy';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Impressum from './pages/Impressum';
 import Map from './pages/Map';
+import AdminLayout from './components/layouts/AdminLayout';
 
 function App() {
   return (
@@ -42,8 +43,8 @@ function App() {
             <Route path="/financing" element={<Financing />} />
             <Route path="/roi" element={<ROI />} />
             <Route path="/company-setup" element={<CompanySetup />} />
-            <Route path="/admin/property-upload" element={<PropertyUpload />} />
-            <Route path="/admin/blog-upload" element={<BlogUpload />} />
+            <Route path="/admin/property-upload" element={<AdminLayout><PropertyUpload /></AdminLayout>} />
+            <Route path="/admin/blog-upload" element={<AdminLayout><BlogUpload /></AdminLayout>} />
             <Route path="/crypto-buying" element={<CryptoBuying />} />
             <Route path="/area/:id" element={<AreaDetail />} />
             <Route path="/blog" element={<Blog />} />
